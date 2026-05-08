@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
@@ -9,6 +9,8 @@ import YachtListing from './pages/YachtListing';
 
 function App() {
   const { t } = useTranslation();
+  const location = useLocation();
+  const hideFooter = location.pathname === '/yachts';
 
   return (
     <ThemeProvider>
@@ -25,12 +27,14 @@ function App() {
             <Route path="/tour/:id" element={<TourDetail />} />
           </Routes>
         </main>
-        <footer
-          className="py-8 text-center text-sm"
-          style={{ borderTop: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-        >
-          <p>{t('footer', { year: new Date().getFullYear() })}</p>
-        </footer>
+        {!hideFooter && (
+          <footer
+            className="py-8 text-center text-sm"
+            style={{ borderTop: '1px solid var(--border)', color: 'var(--text-secondary)' }}
+          >
+            <p>{t('footer', { year: new Date().getFullYear() })}</p>
+          </footer>
+        )}
       </div>
     </ThemeProvider>
   );
