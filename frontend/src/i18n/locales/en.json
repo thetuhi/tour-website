@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "home": "Home",
+    "destinations": "Destinations",
+    "contact": "Contact"
+  },
+  "hero": {
+    "location": "Antalya, Türkiye",
+    "title": "Discover Your Next Adventure",
+    "subtitle": "Exclusive yacht charters, cultural wonders, and adrenaline-fueled experiences — all in one place.",
+    "cta": "Explore Tours"
+  },
+  "yachts": {
+    "title": "Exclusive Yacht Charters",
+    "subtitle": "Glide across the turquoise waters of the Turkish Riviera aboard a private yacht — the pinnacle of luxury.",
+    "tags": {
+      "crew": "Private Crew",
+      "dining": "Fine Dining Included",
+      "snorkel": "Snorkel Equipment",
+      "champagne": "Champagne Welcome"
+    },
+    "empty": "No yacht tours found.",
+    "viewAll": "View All Yachts"
+  },
+  "yachtSelection": {
+    "title": "Select Your Time Slot",
+    "subtitle": "Choose the perfect atmosphere for your private cruise.",
+    "dayTour": {
+      "title": "Day Tour",
+      "time": "10:00 - 15:00",
+      "desc": "Perfect for swimming and sunbathing."
+    },
+    "sunsetTour": {
+      "title": "Sunset Tour",
+      "time": "16:00 - 20:00",
+      "desc": "Romantic vibes and golden hour views."
+    }
+  },
+  "inCity": {
+    "title": "Antalya Local Gems",
+    "subtitle": "Diving, adventure tours, aquariums, and more — unforgettable experiences without leaving the city.",
+    "empty": "No in-city tours found."
+  },
+  "outOfCity": {
+    "title": "Beyond Antalya — Excursions",
+    "subtitle": "Pamukkale, Cappadocia, and beyond — day trips to Turkey's most awe-inspiring destinations.",
+    "empty": "No excursion tours found."
+  },
+  "tourDetail": {
+    "back": "Back to Destinations",
+    "included": "What's Included",
+    "interested": "Interested?",
+    "contactDesc": "Get personalized pricing and availability. Reach out directly via WhatsApp for the fastest response.",
+    "whatsapp": "Send Message",
+    "scan": "Scan to message",
+    "notFound": "Tour Not Found",
+    "returnHome": "Return to Home"
+  },
+  "card": {
+    "viewDetails": "View Details"
+  },
+  "footer": "© {{year}} Aura Tours. All rights reserved.",
+  "theme": {
+    "dark": "Dark Mode",
+    "light": "Light Mode"
+  }
+}

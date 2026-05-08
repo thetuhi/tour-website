@@ -1,0 +1,76 @@
+/* ── Google Fonts: Inter (Latin) + Noto Sans (Cyrillic) ─── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base layer: dark mode default, light mode override ─── */
+@layer base {
+  html {
+    font-family: 'Inter', 'Noto Sans', sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  /* ── Dark mode (default) ── */
+  :root {
+    --bg: #0F172A;
+    --surface: #1E293B;
+    --text: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border: rgba(255, 255, 255, 0.10);
+    --glass-bg: rgba(30, 41, 59, 0.80);
+  }
+
+  /* ── Light mode ── */
+  html:not(.dark) {
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --text: #0F172A;
+    --text-secondary: #475569;
+    --border: rgba(0, 0, 0, 0.08);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    @apply antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* ── Glass panel: works in both modes ─────────────────── */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  @apply backdrop-blur-md rounded-xl;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* ── Smooth theme transitions ──────────────────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+
+/* ── Swiper slider overrides ───────────────────────────── */
+.tour-slider .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s ease;
+}
+.tour-slider .swiper-pagination-bullet-active {
+  background: #38BDF8;
+  width: 28px;
+  border-radius: 5px;
+}
+.tour-slider .swiper-button-next,
+.tour-slider .swiper-button-prev {
+  display: none; /* we use custom buttons instead */
+}
