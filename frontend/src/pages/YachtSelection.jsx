@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Moon, Sun } from 'lucide-react';
+import RevealImage from '../components/RevealImage';
 
 const YachtSelection = () => {
   const { t } = useTranslation();
@@ -13,9 +14,9 @@ const YachtSelection = () => {
       time: t('yachtSelection.dayTour.time'),
       desc: t('yachtSelection.dayTour.desc'),
       Icon: Sun,
-      accent: '#FFD60A',
-      hover: 'hover:border-[#00B4D8] hover:shadow-[0_16px_48px_rgba(0,180,216,0.20)]',
-      iconBg: 'from-[#FFD60A] to-[#FF9F1C]',
+      accent: '#D4AF37',
+      hover: 'hover:border-gold hover:shadow-[0_10px_28px_rgba(212,175,55,0.18)]',
+      iconStyle: 'bg-gold text-navy',
     },
     {
       id: 'sunset',
@@ -23,44 +24,45 @@ const YachtSelection = () => {
       time: t('yachtSelection.sunsetTour.time'),
       desc: t('yachtSelection.sunsetTour.desc'),
       Icon: Moon,
-      accent: '#FF6B35',
-      hover: 'hover:border-[#FF6B35] hover:shadow-[0_16px_48px_rgba(255,107,53,0.20)]',
-      iconBg: 'from-[#FFB703] to-[#FF6B35]',
+      accent: '#0B1F3F',
+      hover: 'hover:border-navy hover:shadow-[0_10px_28px_rgba(11,31,63,0.16)]',
+      iconStyle: 'bg-navy text-gold',
     },
   ];
 
   return (
-    <section className="min-h-[calc(100vh-64px)] bg-[#F5F7FA] text-[#2C3E50] md:h-[calc(100vh-64px)] md:overflow-hidden">
-      <div className="grid min-h-[calc(100vh-64px)] md:h-full md:grid-rows-[minmax(260px,0.9fr)_auto]">
-        <header className="relative isolate flex min-h-[300px] items-center justify-center overflow-hidden md:min-h-0">
-          <img
-            src="/images/Yatch_Lusca_2.jpg"
+    <section className="min-h-[calc(100svh-64px)] bg-mist text-ink md:h-[calc(100svh-64px)] md:min-h-0 md:overflow-hidden">
+      <div className="grid min-h-[calc(100svh-64px)] md:h-full md:min-h-0 md:grid-rows-[minmax(220px,42vh)_1fr]">
+        <header className="relative isolate flex min-h-[280px] items-center justify-center overflow-hidden md:min-h-0">
+          <RevealImage
+            src="/images/tours/lusca-vip-yacht-tour/Yatch_Lusca_2.jpg"
             alt="Luxury yacht at sea"
-            className="absolute inset-0 h-full w-full scale-105 object-cover motion-safe:animate-[heroDrift_12s_ease-out_forwards]"
+            tone="dark"
+            cinematic
+            containerClassName="absolute inset-0"
+            className="h-full w-full object-cover"
             style={{ objectPosition: 'center 52%' }}
+            decoding="async"
+            fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0B1F3F]/25 via-[#0B1F3F]/35 to-[#0B1F3F]/70" />
-          <div className="absolute inset-0 bg-[linear-gradient(110deg,_rgba(0,180,216,0.16),_transparent_34%,_rgba(212,175,55,0.18))]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy/25 via-navy/35 to-navy/70" />
 
           <div className="relative mx-auto max-w-5xl px-4 text-center text-white sm:px-6 lg:px-8">
-            <p className="mb-4 text-xs font-bold uppercase text-[#D4AF37]">
-              Aura private yacht
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-gold">
+              Mars Travel private yacht
             </p>
-            <h1
-              className="text-[42px] font-bold leading-[1.02] md:text-[72px]"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
+            <h1 className="font-display text-[clamp(2.25rem,6vw,4.5rem)] font-bold leading-[1.05]">
               {t('yachtSelection.title')}
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base font-light leading-relaxed text-white/[0.86] md:text-xl">
+            <p className="mx-auto mt-3 max-w-2xl text-base font-light leading-relaxed text-white/[0.86] md:text-lg">
               {t('yachtSelection.subtitle')}
             </p>
           </div>
         </header>
 
-        <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-7 sm:px-6 lg:px-8 md:py-8">
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            {options.map(({ id, title, time, desc, Icon, accent, hover, iconBg }) => (
+        <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-6xl items-center px-4 py-5 sm:px-6 lg:px-8 md:py-6">
+          <div className="grid w-full gap-5 md:grid-cols-2 md:gap-6">
+            {options.map(({ id, title, time, desc, Icon, accent, hover, iconStyle }) => (
               <article
                 key={id}
                 onClick={() => navigate(`/yachts/${id}`)}
@@ -73,32 +75,29 @@ const YachtSelection = () => {
                     navigate(`/yachts/${id}`);
                   }
                 }}
-                className={`group min-h-[260px] cursor-pointer rounded-[24px] border-2 border-transparent bg-gradient-to-br from-white to-[#F8FBFD] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-2 focus:outline focus:outline-4 focus:outline-offset-4 focus:outline-[#00B4D8] md:min-h-[280px] md:p-8 ${hover}`}
+                className={`group min-h-[238px] cursor-pointer rounded-2xl border-2 border-transparent bg-white p-5 shadow-[0_6px_24px_rgba(11,31,63,0.07)] transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-1 focus:outline focus:outline-4 focus:outline-offset-4 focus:outline-gold md:min-h-[230px] md:p-6 ${hover}`}
               >
                 <div className="flex h-full flex-col justify-between">
                   <div>
                     <div
-                      className={`mb-5 flex h-16 w-16 items-center justify-center rounded-[22px] bg-gradient-to-br ${iconBg} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
+                      className={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl ${iconStyle} shadow-md transition-transform duration-200 group-hover:scale-105`}
                     >
-                      <Icon size={34} strokeWidth={2.2} />
+                      <Icon size={30} strokeWidth={2.2} />
                     </div>
 
-                    <p className="mb-2 text-lg font-semibold text-[#8E99AB]">{time}</p>
-                    <h2
-                      className="text-[28px] font-bold leading-tight text-[#0B1F3F] md:text-[32px]"
-                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                    >
+                    <p className="mb-2 text-base font-semibold text-secondary">{time}</p>
+                    <h2 className="font-display text-[26px] font-bold leading-tight text-navy md:text-[30px]">
                       {title}
                     </h2>
-                    <p className="mt-4 max-w-md text-base font-light leading-relaxed text-[#687386]">
+                    <p className="mt-3 max-w-md text-sm font-light leading-relaxed text-secondary md:text-base">
                       {desc}
                     </p>
                   </div>
 
-                  <div className="mt-6 inline-flex items-center text-base font-semibold text-[#00B4D8]">
+                  <div className="mt-5 inline-flex items-center text-[13px] font-semibold uppercase tracking-[0.15em] text-primary">
                     <span className="mr-3 h-px w-10" style={{ backgroundColor: accent }} />
                     {t('card.viewDetails')}
-                    <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>
               </article>

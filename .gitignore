@@ -1,0 +1,11 @@
+# Maven build output
+backend/target/
+
+# IDE files
+backend/.idea/
+.idea/
+*.iml
+
+# Environment files
+.env
+.env.local

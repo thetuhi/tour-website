@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import RevealImage from './RevealImage';
+
+const CATEGORY_KEYS = {
+  YACHT: 'card.category.yacht',
+  INCITY: 'card.category.incity',
+  OUTCITY: 'card.category.outcity',
+};
 
 const TourCard = ({ tour, large = false, slot = null }) => {
   const { i18n, t } = useTranslation();
@@ -9,6 +16,11 @@ const TourCard = ({ tour, large = false, slot = null }) => {
   const title       = isRu && tour.titleRu       ? tour.titleRu       : tour.titleEn;
   const description = isRu && tour.descriptionRu ? tour.descriptionRu : tour.descriptionEn;
 
+  const categoryKey = tour.category ? CATEGORY_KEYS[tour.category.toUpperCase()] : null;
+  const categoryLabel = categoryKey ? t(categoryKey) : tour.category;
+  const location = isRu ? (tour.locationRu || tour.locationEn) : tour.locationEn;
+  const cardLabel = location || categoryLabel;
+
   /* Use the first image from the imageUrls array, or a fallback */
   const coverImage = (tour.imageUrls && tour.imageUrls.length > 0)
     ? tour.imageUrls[0]
@@ -16,49 +28,43 @@ const TourCard = ({ tour, large = false, slot = null }) => {
 
   return (
     <Link to={`/tour/${tour.id}${slot ? '?slot=' + slot : ''}`} className="group block h-full">
-      <div
-        className="overflow-hidden h-full flex flex-col rounded-2xl"
-        style={{
-          background: 'var(--glass-bg)',
-          border: '1px solid var(--border)',
-          backdropFilter: 'blur(12px)',
-          transition: 'border-color 0.3s ease',
-        }}
-      >
+      <article className="h-full flex flex-col overflow-hidden rounded-2xl bg-white border border-line transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_18px_44px_rgba(11,31,63,0.10)]">
         {/* Image */}
-        <div className={`relative overflow-hidden flex-shrink-0 ${large ? 'h-56 md:h-80' : 'h-48 md:h-56'}`}>
-          <img
+        <div className={`relative overflow-hidden flex-shrink-0 ${large ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}>
+          <RevealImage
             src={coverImage}
             alt={title}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+            tone="light"
+            containerClassName="absolute inset-0"
+            className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-500 ease-out"
+            loading="lazy"
+            decoding="async"
           />
-          {/* Category badge */}
-          <div className="absolute top-4 left-4 z-20">
-            <span className="px-3 py-1 bg-primary/90 text-slate-900 text-[10px] md:text-xs font-bold rounded-full uppercase tracking-wider">
-              {tour.category}
-            </span>
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+          {/* Location / category label */}
+          <span className="absolute bottom-4 left-4 z-10 text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95">
+            {cardLabel}
+          </span>
         </div>
 
         {/* Content */}
-        <div className="p-4 md:p-5 flex-grow flex flex-col justify-between z-20 relative">
+        <div className="p-5 md:p-6 flex-grow flex flex-col justify-between">
           <div>
             <h3
-              className={`font-bold mb-2 group-hover:text-primary transition-colors ${large ? 'text-lg md:text-xl' : 'text-base md:text-lg'}`}
-              style={{ color: 'var(--text)' }}
+              className={`font-display font-bold text-navy mb-2.5 leading-snug group-hover:text-primary transition-colors ${large ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}
             >
               {title}
             </h3>
-            <p className="line-clamp-2 md:line-clamp-3 text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
+            <p className="line-clamp-2 md:line-clamp-3 text-xs md:text-sm font-light leading-relaxed text-secondary">
               {description}
             </p>
           </div>
-          <div className="mt-4 md:mt-5 flex items-center text-primary text-xs md:text-sm font-semibold group-hover:translate-x-2 transition-transform">
-            {t('card.viewDetails')} <ArrowRight size={14} md:size={15} className="ml-1" />
+          <div className="mt-5 flex items-center gap-2 text-[11px] md:text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+            {t('card.viewDetails')}
+            <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1.5" />
           </div>
         </div>
-
-      </div>
+      </article>
     </Link>
   );
 };

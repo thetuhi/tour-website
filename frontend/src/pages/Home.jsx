@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TourCard from '../components/TourCard';
-import { Anchor, Building2, Globe, ArrowRight } from 'lucide-react';
+import RevealImage from '../components/RevealImage';
+import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-
-const BASE = 'http://localhost:8080/api/tours';
+import { TOURS_API } from '../utils/api';
 
 /* ── Skeleton placeholder ──────────────────────────────── */
 const SkeletonGrid = ({ count = 3, cols = 3, tall = false }) => (
@@ -18,41 +18,31 @@ const SkeletonGrid = ({ count = 3, cols = 3, tall = false }) => (
     {Array.from({ length: count }).map((_, i) => (
       <div
         key={i}
-        className={`${tall ? 'h-[28rem]' : 'h-72'} rounded-2xl animate-pulse`}
-        style={{ background: 'var(--surface)' }}
+        className={`${tall ? 'h-[30rem]' : 'h-[24rem]'} rounded-2xl animate-pulse bg-white border border-line`}
       />
     ))}
   </div>
 );
 
-/* ── Golden glow wrapper for yacht cards ───────────────── */
-const GoldenCard = ({ children }) => (
-  <div
-    className="rounded-2xl"
-    style={{
-      boxShadow:
-        '0 0 0 1px rgba(234,179,8,0.28), 0 6px 40px rgba(234,179,8,0.14)',
-      transition: 'box-shadow 0.35s ease, transform 0.35s ease',
-    }}
-    onMouseEnter={e => {
-      e.currentTarget.style.boxShadow =
-        '0 0 0 2px rgba(234,179,8,0.60), 0 12px 56px rgba(234,179,8,0.32)';
-      e.currentTarget.style.transform = 'translateY(-4px)';
-    }}
-    onMouseLeave={e => {
-      e.currentTarget.style.boxShadow =
-        '0 0 0 1px rgba(234,179,8,0.28), 0 6px 40px rgba(234,179,8,0.14)';
-      e.currentTarget.style.transform = 'translateY(0)';
-    }}
-  >
-    {children}
-  </div>
+/* ── Editorial section header ──────────────────────────── */
+const SectionHeader = ({ eyebrow, title, subtitle }) => (
+  <header className="max-w-3xl mb-10 md:mb-14">
+    <p className="mb-3 text-[11px] md:text-xs font-semibold uppercase tracking-[0.22em] md:tracking-[0.3em] text-gold">
+      {eyebrow}
+    </p>
+    <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-navy">
+      {title}
+    </h2>
+    <p className="mt-4 text-base md:text-lg font-light leading-relaxed text-secondary">
+      {subtitle}
+    </p>
+  </header>
 );
 
 /* ── Section divider ───────────────────────────────────── */
 const Divider = () => (
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
-    <div style={{ borderTop: '1px solid var(--border)' }} />
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 md:mt-28">
+    <div className="border-t border-line" />
   </div>
 );
 
@@ -61,19 +51,16 @@ const Divider = () => (
    ══════════════════════════════════════════════════════════ */
 const Home = () => {
   const { t } = useTranslation();
-  const [yachts, setYachts]         = useState([]);
   const [inCity, setInCity]         = useState([]);
   const [outOfCity, setOutOfCity]   = useState([]);
   const [loading, setLoading]       = useState(true);
 
   useEffect(() => {
     Promise.all([
-      fetch(`${BASE}/yachts`).then(r => r.json()),
-      fetch(`${BASE}/in-city`).then(r => r.json()),
-      fetch(`${BASE}/out-of-city`).then(r => r.json()),
+      fetch(`${TOURS_API}/in-city`).then(r => r.json()),
+      fetch(`${TOURS_API}/out-of-city`).then(r => r.json()),
     ])
-      .then(([y, ic, oc]) => {
-        setYachts(y);
+      .then(([ic, oc]) => {
         setInCity(ic);
         setOutOfCity(oc);
       })
@@ -97,35 +84,36 @@ const Home = () => {
          ════════════════════════════════════════════════════ */}
       <div
         id="hero-section-wrapper"
-        style={{
-          minHeight: '100vh',
-          width: '100%',
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.72)), url('/images/Antalya-kapak.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
-          backgroundColor: '#000',
-        }}
+        className="min-h-viewport relative flex w-full items-center justify-center overflow-hidden"
+        style={{ backgroundColor: '#040C1A' }}
       >
-        <div className="text-center z-10 px-4 max-w-4xl mx-auto">
-          <p className="text-xs md:text-sm font-semibold tracking-[0.3em] text-yellow-400 uppercase mb-4">
+        <RevealImage
+          src="/images/Antalya-kapak.jpg"
+          alt=""
+          tone="dark"
+          cinematic
+          containerClassName="absolute inset-0"
+          className="h-full w-full object-cover"
+          fetchPriority="high"
+          decoding="async"
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(rgba(4,12,26,0.42), rgba(4,12,26,0.74))' }}
+        />
+        <div className="relative text-center z-10 px-4 max-w-4xl mx-auto">
+          <p className="text-xs md:text-sm font-semibold tracking-[0.35em] text-gold uppercase mb-6">
             {t('hero.location')}
           </p>
-          <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg leading-tight">
+          <h1 className="font-display text-[clamp(2.5rem,7vw,6rem)] font-bold text-white mb-6 md:mb-8 drop-shadow-lg leading-[1.08]">
             {t('hero.title')}
           </h1>
-          <p className="text-lg md:text-2xl mb-10 max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.82)' }}>
+          <p className="text-base sm:text-lg md:text-2xl mb-10 md:mb-12 max-w-2xl mx-auto font-light" style={{ color: 'rgba(255,255,255,0.85)' }}>
             {t('hero.subtitle')}
           </p>
           <button
             onClick={() => document.getElementById('yachts')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-primary hover:bg-sky-500 text-slate-900 font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+            className="max-w-full border border-white/50 text-white uppercase tracking-[0.18em] md:tracking-[0.25em] text-xs md:text-sm font-semibold px-6 py-3.5 md:px-10 md:py-4 hover:bg-white hover:text-navy transition-colors duration-300"
           >
             {t('hero.cta')}
           </button>
@@ -133,65 +121,59 @@ const Home = () => {
       </div>
 
       {/* ════════════════════════════════════════════════════
-          TIER 1 — 💎 Premium Yacht Charters
+          TIER 1 — Private Yacht Escapes
          ════════════════════════════════════════════════════ */}
-      <section id="yachts" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-24">
-        <div className="flex items-center space-x-3 mb-3">
-          <Anchor className="text-yellow-400" size={24} md:size={30} />
-          <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text)' }}>
-            {t('yachts.title')}
-          </h2>
-        </div>
-        <p className="text-sm md:text-base mb-3 ml-1" style={{ color: 'var(--text-secondary)' }}>
-          {t('yachts.subtitle')}
-        </p>
+      <section id="yachts" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 md:mt-28 scroll-mt-24">
+        <SectionHeader
+          eyebrow={t('yachts.eyebrow')}
+          title={t('yachts.title')}
+          subtitle={t('yachts.subtitle')}
+        />
+
         {/* Premium tags */}
-        <div className="flex gap-2 mb-8 md:mb-10 ml-1 flex-wrap">
+        <div className="flex gap-2.5 mb-10 flex-wrap">
           {YACHT_TAGS.map(label => (
             <span
               key={label}
-              className="text-[10px] md:text-xs px-2 md:px-3 py-1 rounded-full border font-medium"
-              style={{
-                borderColor: 'rgba(234,179,8,0.40)',
-                color: '#eab308',
-                background: 'rgba(234,179,8,0.06)',
-              }}
+              className="text-[10px] md:text-xs px-3 py-1.5 border border-gold/40 text-gold font-medium uppercase tracking-[0.12em]"
             >
-              ✦ {label}
+              {label}
             </span>
           ))}
         </div>
 
-        <div className="relative group overflow-hidden rounded-3xl border border-yellow-500/20 min-h-[300px] md:min-h-[400px] flex items-center">
-          {/* Background Image with Overlay */}
-          <div 
-            className="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-110"
-            style={{
-              backgroundImage: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('/images/Yatch_Lusca.jpg')",
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          />
-          
-          <div className="relative z-10 max-w-2xl p-8 md:p-12">
-            <h3 className="text-2xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg">
+        <div className="relative group overflow-hidden rounded-3xl min-h-[380px] md:min-h-[480px] flex items-end bg-navy">
+          {/* Background Image with Overlay — below the fold, so loaded lazily */}
+          <div className="absolute inset-0 z-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+            <RevealImage
+              src="/images/tours/lusca-vip-yacht-tour/Yatch_Lusca.jpg"
+              alt=""
+              tone="dark"
+              containerClassName="absolute inset-0"
+              className="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(rgba(11,31,63,0.15), rgba(11,31,63,0.82))' }}
+            />
+          </div>
+
+          <div className="relative z-10 max-w-2xl p-8 md:p-14">
+            <h3 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white leading-tight">
               {t('yachtSelection.title')}
             </h3>
-            <p className="text-lg md:text-xl text-white/80 mb-8 drop-shadow-md">
+            <p className="text-base md:text-xl text-white/80 font-light mb-8 md:mb-10">
               {t('yachtSelection.subtitle')}
             </p>
-            
+
             <Link
               to="/yachts"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-sm md:text-base uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(234,179,8,0.4)]"
-              style={{
-                background: 'linear-gradient(135deg, #eab308 0%, #ca8a04 100%)',
-                color: '#0f172a',
-              }}
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-3 bg-gold text-navy px-6 sm:px-10 py-4 text-xs md:text-sm font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] hover:bg-white transition-colors duration-300"
             >
-              <Anchor size={20} />
               {t('yachts.viewAll')}
-              <ArrowRight size={20} />
+              <ArrowRight size={18} />
             </Link>
           </div>
         </div>
@@ -203,23 +185,19 @@ const Home = () => {
       <div id="destinations" className="scroll-mt-24"></div>
 
       {/* ════════════════════════════════════════════════════
-          TIER 2 — 🏛️ Discover Antalya (In-City)
+          TIER 2 — Discover Antalya (In-City)
          ════════════════════════════════════════════════════ */}
-      <section id="in-city" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-16">
-        <div className="flex items-center space-x-3 mb-3">
-          <Building2 className="text-primary" size={24} md:size={30} />
-          <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text)' }}>
-            {t('inCity.title')}
-          </h2>
-        </div>
-        <p className="text-sm md:text-base mb-8 md:mb-10 ml-1" style={{ color: 'var(--text-secondary)' }}>
-          {t('inCity.subtitle')}
-        </p>
+      <section id="in-city" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 md:mt-24">
+        <SectionHeader
+          eyebrow={t('inCity.eyebrow')}
+          title={t('inCity.title')}
+          subtitle={t('inCity.subtitle')}
+        />
 
         {loading ? (
           <SkeletonGrid count={3} cols={3} />
         ) : inCity.length === 0 ? (
-          <p style={{ color: 'var(--text-secondary)' }}>{t('inCity.empty')}</p>
+          <p className="text-secondary">{t('inCity.empty')}</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {inCity.map(tour => (
@@ -232,27 +210,23 @@ const Home = () => {
       <Divider />
 
       {/* ════════════════════════════════════════════════════
-          TIER 3 — 🌍 Beyond Antalya (Out-of-City Excursions)
+          TIER 3 — Beyond Antalya (Out-of-City Journeys)
          ════════════════════════════════════════════════════ */}
-      <section id="out-of-city" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-16">
-        <div className="flex items-center space-x-3 mb-3">
-          <Globe className="text-emerald-400" size={24} md:size={30} />
-          <h2 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text)' }}>
-            {t('outOfCity.title')}
-          </h2>
-        </div>
-        <p className="text-sm md:text-base mb-8 md:mb-10 ml-1" style={{ color: 'var(--text-secondary)' }}>
-          {t('outOfCity.subtitle')}
-        </p>
+      <section id="out-of-city" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 md:mt-24">
+        <SectionHeader
+          eyebrow={t('outOfCity.eyebrow')}
+          title={t('outOfCity.title')}
+          subtitle={t('outOfCity.subtitle')}
+        />
 
         {loading ? (
           <SkeletonGrid count={2} cols={2} />
         ) : outOfCity.length === 0 ? (
-          <p style={{ color: 'var(--text-secondary)' }}>{t('outOfCity.empty')}</p>
+          <p className="text-secondary">{t('outOfCity.empty')}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10">
             {outOfCity.map(tour => (
-              <TourCard key={tour.id} tour={tour} />
+              <TourCard key={tour.id} tour={tour} large />
             ))}
           </div>
         )}

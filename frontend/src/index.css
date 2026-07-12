@@ -1,11 +1,12 @@
-/* ── Google Fonts: Inter (Latin) + Noto Sans (Cyrillic) ─── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+/* Fonts (Inter + Noto Sans + Playfair Display) are loaded from index.html
+   so they start downloading before this bundle and are available to the
+   boot splash. */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── Base layer: dark mode default, light mode override ─── */
+/* ── Base layer: MARS TRAVEL single premium theme ─────── */
 @layer base {
   html {
     font-family: 'Inter', 'Noto Sans', sans-serif;
@@ -13,24 +14,16 @@
     overflow-x: hidden;
   }
 
-  /* ── Dark mode (default) ── */
   :root {
-    --bg: #0F172A;
-    --surface: #1E293B;
-    --text: #F1F5F9;
-    --text-secondary: #94A3B8;
-    --border: rgba(255, 255, 255, 0.10);
-    --glass-bg: rgba(30, 41, 59, 0.80);
-  }
-
-  /* ── Light mode ── */
-  html:not(.dark) {
-    --bg: #F8FAFC;
+    --bg: #F5F7FA;
     --surface: #FFFFFF;
-    --text: #0F172A;
-    --text-secondary: #475569;
-    --border: rgba(0, 0, 0, 0.08);
-    --glass-bg: rgba(255, 255, 255, 0.85);
+    --text: #0B1F3F;
+    --text-secondary: #687386;
+    --border: #E6ECF2;
+    --glass-bg: rgba(255, 255, 255, 0.88);
+    --navy: #0B1F3F;
+    --gold: #D4AF37;
+    --accent: #00B4D8;
   }
 
   body {
@@ -38,23 +31,152 @@
     color: var(--text);
     @apply antialiased;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
-/* ── Glass panel: works in both modes ─────────────────── */
+/* ── Viewport-stable full-height sections ──────────────────
+   100svh avoids the mobile URL-bar jump; 100vh is the fallback
+   for browsers without small-viewport-unit support. */
+.min-h-viewport {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+/* ── Glass panel ───────────────────────────────────────── */
 .glass-panel {
   background: var(--glass-bg);
   border: 1px solid var(--border);
-  @apply backdrop-blur-md rounded-xl;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  @apply rounded-xl;
 }
 
-/* ── Smooth theme transitions ──────────────────────────── */
-*, *::before, *::after {
+/* ── Smooth interaction transitions ────────────────────── */
+button,
+a,
+.ui-transition {
   transition-property: background-color, border-color, color, box-shadow;
   transition-duration: 0.25s;
   transition-timing-function: ease;
+}
+
+/* ── Image reveal ──────────────────────────────────────────
+   Loading: a quiet breathing wash in brand tones (no spinner).
+   Ready: fade + subtle settle. The keyframes only define `from`,
+   so they interpolate to the element's own computed style and
+   release cleanly for hover transforms afterwards. */
+@keyframes img-breathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+@keyframes img-reveal-in {
+  from { opacity: 0; transform: scale(1.045); }
+}
+@keyframes img-reveal-fade {
+  from { opacity: 0; }
+}
+
+.img-reveal { overflow: hidden; }
+
+.img-reveal__placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  animation: img-breathe 2.6s ease-in-out infinite;
+}
+.img-reveal--light .img-reveal__placeholder {
+  background: linear-gradient(135deg, #E9EEF4 0%, #DDE5EE 55%, #EEF2F7 100%);
+}
+.img-reveal--dark .img-reveal__placeholder {
+  background: linear-gradient(135deg, #11284E 0%, #0B1F3F 55%, #142E58 100%);
+}
+.img-reveal__placeholder--static { animation: none; }
+
+.img-reveal__fallback-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 2;
+  opacity: 0.35;
+}
+.img-reveal--light .img-reveal__fallback-icon { color: #687386; }
+.img-reveal--dark .img-reveal__fallback-icon  { color: rgba(255, 255, 255, 0.75); }
+
+.img-reveal__img { opacity: 0; }
+.img-reveal__img--ready {
+  opacity: 1;
+  animation: img-reveal-in 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.img-reveal__img--ready.img-reveal__img--cinematic { animation-duration: 1.1s; }
+.img-reveal__img--instant { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .img-reveal__placeholder { animation: none; opacity: 0.8; }
+  .img-reveal__img--ready {
+    animation-name: img-reveal-fade;
+    animation-duration: 0.25s;
+  }
+}
+
+/* ── Lightbox loading line: a breathing gold hairline ───── */
+.lightbox-loading {
+  width: 56px;
+  height: 2px;
+  background: #D4AF37;
+  transform-origin: center;
+  animation: lightbox-line 1.4s ease-in-out infinite;
+}
+@keyframes lightbox-line {
+  0%, 100% { transform: scaleX(0.3); opacity: 0.45; }
+  50%      { transform: scaleX(1);   opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lightbox-loading { animation: none; opacity: 0.7; }
+}
+
+/* ── Image lightbox ────────────────────────────────────────
+   Cinematic open: overlay fades, image settles from a subtle
+   scale. Close is transition-based; `animation: none` on the
+   closing classes releases the fill-forwards values so the
+   exit transition can run. */
+@keyframes lightbox-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes lightbox-image-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.lightbox-overlay {
+  animation: lightbox-fade-in 0.3s ease forwards;
+}
+.lightbox-image {
+  animation: lightbox-image-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.lightbox-overlay--closing {
+  animation: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.lightbox-image--closing {
+  animation: none;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox-overlay,
+  .lightbox-image {
+    animation-duration: 0.01ms;
+  }
+  .lightbox-image--closing {
+    transform: none;
+  }
+  .lightbox-overlay--closing,
+  .lightbox-image--closing {
+    transition-duration: 0.01ms;
+  }
 }
 
 /* ── Swiper slider overrides ───────────────────────────── */
@@ -66,20 +188,11 @@
   transition: all 0.3s ease;
 }
 .tour-slider .swiper-pagination-bullet-active {
-  background: #38BDF8;
+  background: #D4AF37;
   width: 28px;
   border-radius: 5px;
 }
 .tour-slider .swiper-button-next,
 .tour-slider .swiper-button-prev {
   display: none; /* we use custom buttons instead */
-}
-
-@keyframes heroDrift {
-  from {
-    transform: scale(1.08);
-  }
-  to {
-    transform: scale(1.02);
-  }
 }

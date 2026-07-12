@@ -1,17 +1,19 @@
 {
   "nav": {
     "home": "Home",
-    "destinations": "Destinations",
+    "destinations": "Experiences",
+    "about": "About Us",
     "contact": "Contact"
   },
   "hero": {
-    "location": "Antalya, Türkiye",
+    "location": "Antalya, TÜRKİYE",
     "title": "Discover Your Next Adventure",
-    "subtitle": "Exclusive yacht charters, cultural wonders, and adrenaline-fueled experiences — all in one place.",
-    "cta": "Explore Tours"
+    "subtitle": "Private yacht escapes, cultural wonders, and adrenaline-fueled journeys — curated by MARS TRAVEL.",
+    "cta": "Discover Experiences"
   },
   "yachts": {
-    "title": "Exclusive Yacht Charters",
+    "eyebrow": "Signature Experience",
+    "title": "Private Yacht Escapes",
     "subtitle": "Glide across the turquoise waters of the Turkish Riviera aboard a private yacht — the pinnacle of luxury.",
     "tags": {
       "crew": "Private Crew",
@@ -19,49 +21,106 @@
       "snorkel": "Snorkel Equipment",
       "champagne": "Champagne Welcome"
     },
-    "empty": "No yacht tours found.",
-    "viewAll": "View All Yachts"
+    "empty": "No yacht experiences available at the moment.",
+    "viewAll": "Explore Private Yachts"
   },
   "yachtSelection": {
-    "title": "Select Your Time Slot",
-    "subtitle": "Choose the perfect atmosphere for your private cruise.",
+    "title": "Choose Your Moment at Sea",
+    "subtitle": "Select the perfect atmosphere for your private cruise.",
     "dayTour": {
-      "title": "Day Tour",
+      "title": "Day Cruise",
       "time": "10:00 - 15:00",
       "desc": "Perfect for swimming and sunbathing."
     },
     "sunsetTour": {
-      "title": "Sunset Tour",
+      "title": "Sunset Cruise",
       "time": "16:00 - 20:00",
       "desc": "Romantic vibes and golden hour views."
     }
   },
   "inCity": {
-    "title": "Antalya Local Gems",
-    "subtitle": "Diving, adventure tours, aquariums, and more — unforgettable experiences without leaving the city.",
-    "empty": "No in-city tours found."
+    "eyebrow": "In the City",
+    "title": "Discover Antalya",
+    "subtitle": "Diving, canyons, aquariums, and more — unforgettable experiences without leaving the city.",
+    "empty": "No experiences available at the moment."
   },
   "outOfCity": {
-    "title": "Beyond Antalya — Excursions",
-    "subtitle": "Pamukkale, Cappadocia, and beyond — day trips to Turkey's most awe-inspiring destinations.",
-    "empty": "No excursion tours found."
+    "eyebrow": "Grand Journeys",
+    "title": "Beyond Antalya",
+    "subtitle": "Pamukkale, Cappadocia, and beyond — journeys to Turkey's most awe-inspiring destinations.",
+    "empty": "No journeys available at the moment."
   },
   "tourDetail": {
-    "back": "Back to Destinations",
+    "eyebrow": "The Experience",
+    "back": "Back to Experiences",
     "included": "What's Included",
     "interested": "Interested?",
-    "contactDesc": "Get personalized pricing and availability. Reach out directly via WhatsApp for the fastest response.",
-    "whatsapp": "Send Message",
-    "scan": "Scan to message",
-    "notFound": "Tour Not Found",
+    "contactDesc": "Speak directly with your MARS TRAVEL representative on WhatsApp to plan the details of your experience.",
+    "whatsapp": "Request This Experience",
+    "scan": "Scan to request",
+    "notFound": "Experience Not Found",
     "returnHome": "Return to Home"
   },
-  "card": {
-    "viewDetails": "View Details"
+  "lightbox": {
+    "close": "Close image",
+    "view": "View full image",
+    "prev": "Previous image",
+    "next": "Next image"
   },
-  "footer": "© {{year}} Aura Tours. All rights reserved.",
-  "theme": {
-    "dark": "Dark Mode",
-    "light": "Light Mode"
+  "card": {
+    "viewDetails": "Explore",
+    "category": {
+      "yacht": "Private Yacht",
+      "incity": "Antalya",
+      "outcity": "Beyond Antalya"
+    }
+  },
+  "footer": {
+    "rights": "© {{year}} {{brand}}. All rights reserved.",
+    "license": "Travel Agency Operating License No: {{number}}",
+    "licenseShort": "Operating License No: {{number}}",
+    "relation": "{{brand}} operates as an online sales and marketing channel of {{agency}}. Reservations, sales, and payment transactions are handled by {{agency}}.",
+    "explore": "Explore",
+    "policies": "Policies",
+    "official": "Official Agency",
+    "yachts": "Yacht Experiences",
+    "location": "Antalya, Türkiye"
+  },
+  "about": {
+    "eyebrow": "About Us",
+    "title": "The Turkish Riviera, Curated With Care",
+    "subtitle": "{{brand}} presents a hand-picked collection of private yacht escapes and signature journeys across Türkiye — designed for guests who value privacy, comfort, and detail.",
+    "storyEyebrow": "Our Story",
+    "storyTitle": "Born on the Antalya Coast",
+    "story1": "{{brand}} was created to show the Turkish Riviera the way locals who love it experience it: quiet coves reached by private yacht, sunrise balloons over Cappadocia, and cities layered with millennia of history. Every experience in our collection is selected and checked by our own team — we present nothing we would not book ourselves.",
+    "story2": "Behind the brand stands {{agency}}, a licensed travel agency based in Antalya. {{brand}} operates as its online sales and marketing channel; reservations, sales, and payment transactions are handled by {{agency}}, so every booking is backed by a licensed operator.",
+    "values": {
+      "curated": {
+        "title": "Curated Collection",
+        "desc": "A short, deliberate list of experiences — each one personally selected, not an endless catalogue."
+      },
+      "licensed": {
+        "title": "Licensed Agency",
+        "desc": "Every reservation is concluded with {{agency}} — Travel Agency Operating License No: {{number}}."
+      },
+      "personal": {
+        "title": "Personal Planning",
+        "desc": "No forms, no call centers. You speak directly with a representative on WhatsApp who tailors the day to you."
+      },
+      "bilingual": {
+        "title": "English & Russian",
+        "desc": "Full service in both languages — from the first message to the moment you step back on shore."
+      }
+    },
+    "ctaTitle": "Let's Plan Your Experience",
+    "ctaDesc": "Tell us what kind of day you are imagining — our team will shape it around you.",
+    "cta": "Chat on WhatsApp"
+  },
+  "policy": {
+    "eyebrow": "Legal & Policies",
+    "updated": "Last updated: {{date}}",
+    "back": "Back to Home",
+    "also": "Related policies",
+    "notFound": "Page Not Found"
   }
 }

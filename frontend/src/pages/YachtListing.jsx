@@ -1,95 +1,91 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Camera, Music, Utensils, Waves, Wifi } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import { generateWhatsAppLink } from '../utils/whatsapp';
-
-const BASE = 'http://localhost:8080/api/tours';
-
-const amenityIcons = [
-  { icon: Wifi, label: 'WiFi' },
-  { icon: Utensils, label: 'Food' },
-  { icon: Waves, label: 'Swim' },
-  { icon: Music, label: 'Music' },
-  { icon: Camera, label: 'Photos' },
-];
+import { recordLead } from '../utils/leads';
+import { TOURS_API } from '../utils/api';
+import RevealImage from '../components/RevealImage';
 
 const SkeletonGrid = ({ count = 3 }) => (
   <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
     {Array.from({ length: count }).map((_, index) => (
-      <div key={index} className="h-[580px] animate-pulse rounded-[20px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)]" />
+      <div key={index} className="h-[560px] animate-pulse rounded-2xl bg-white shadow-[0_4px_24px_rgba(11,31,63,0.06)]" />
     ))}
   </div>
 );
 
-const YachtCard = ({ tour, slot, lang, viewDetailsLabel, whatsappLabel }) => {
+const YachtCard = ({ tour, slot, lang, viewDetailsLabel, whatsappLabel, includedLabel }) => {
   const isRu = lang === 'ru';
   const title = isRu && tour.titleRu ? tour.titleRu : tour.titleEn;
   const description = isRu && tour.descriptionRu ? tour.descriptionRu : tour.descriptionEn;
-  const coverImage = tour.imageUrls?.[0] || '/images/Yatch_Lusca.jpg';
-  const whatsappUrl = generateWhatsAppLink(lang, tour.titleEn, slot);
+  const coverImage = tour.imageUrls?.[0] || '/images/tours/lusca-vip-yacht-tour/Yatch_Lusca.jpg';
+  const whatsappUrl = generateWhatsAppLink(lang, tour.titleEn, slot, tour.contactPhone);
+  const highlights = tour.includedItems?.slice(0, 4) || [];
 
   return (
-    <article className="group flex h-full min-h-[580px] flex-col overflow-hidden rounded-[20px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_12px_48px_rgba(0,0,0,0.12)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(11,31,63,0.06)] transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[0_14px_36px_rgba(11,31,63,0.12)]">
       <Link to={`/tour/${tour.id}${slot ? '?slot=' + slot : ''}`} className="relative block h-60 overflow-hidden">
-        <img
+        <RevealImage
           src={coverImage}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          tone="light"
+          containerClassName="absolute inset-0"
+          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]"
           loading="lazy"
+          decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        <span className="absolute right-4 top-4 rounded-lg bg-[#D4AF37] px-3 py-1.5 text-xs font-bold uppercase text-white shadow-lg">
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
+        <span className="absolute right-4 top-4 bg-gold px-3 py-1.5 text-xs font-bold uppercase tracking-[0.15em] text-navy shadow-lg">
           VIP
         </span>
       </Link>
 
       <div className="flex flex-1 flex-col p-6">
         <div>
-          <h2
-            className="text-2xl font-bold leading-tight text-[#0B1F3F]"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
+          <h2 className="font-display text-2xl font-bold leading-tight text-navy">
             {title}
           </h2>
 
-          <p className="mt-4 line-clamp-3 text-sm font-light leading-relaxed text-[#687386]">
+          <p className="mt-4 line-clamp-3 text-sm font-light leading-relaxed text-secondary">
             {description}
           </p>
 
-          <div className="mt-5">
-            <p className="mb-3 text-sm font-bold text-[#0B1F3F]">Amenities</p>
-            <div className="flex flex-wrap gap-2">
-              {amenityIcons.map(({ icon: Icon, label }) => (
-                <span
-                  key={label}
-                  title={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#E6ECF2] text-[#00B4D8]"
-                >
-                  <Icon size={18} strokeWidth={2} />
-                </span>
-              ))}
+          {highlights.length > 0 && (
+            <div className="mt-5">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-navy">{includedLabel}</p>
+              <div className="flex flex-wrap gap-2">
+                {highlights.map(item => (
+                  <span
+                    key={item}
+                    className="border border-line px-3 py-1.5 text-[11px] font-medium text-secondary"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className="mt-auto pt-6">
           <Link
             to={`/tour/${tour.id}${slot ? '?slot=' + slot : ''}`}
-            className="mb-4 inline-flex items-center text-sm font-bold text-[#00B4D8]"
+            className="mb-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary"
           >
             {viewDetailsLabel}
-            <ArrowRight size={16} className="ml-1" />
+            <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1.5" />
           </Link>
 
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex min-h-14 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#00B4D8] to-[#0077B6] px-6 text-base font-semibold text-white shadow-[0_4px_16px_rgba(0,180,216,0.30)] transition-all duration-300 hover:-translate-y-0.5 hover:from-[#0077B6] hover:to-[#005f8c] hover:shadow-[0_6px_24px_rgba(0,180,216,0.40)]"
+            onClick={() => recordLead({ tourId: tour.id, language: lang, source: 'yacht-listing', timeSlot: slot })}
+            className="flex min-h-14 w-full items-center justify-center gap-2 bg-navy px-6 text-xs font-bold uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy"
           >
-            <FaWhatsapp size={20} />
+            <FaWhatsapp size={18} />
             {whatsappLabel}
           </a>
         </div>
@@ -105,7 +101,7 @@ const YachtListing = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${BASE}/yachts`)
+    fetch(`${TOURS_API}/yachts`)
       .then(response => response.json())
       .then(data => setYachts(data))
       .catch(error => console.error('Error fetching yachts:', error))
@@ -121,31 +117,33 @@ const YachtListing = () => {
     : t('yachtSelection.sunsetTour.time');
 
   return (
-    <main className="min-h-screen bg-[#F5F7FA] pb-20 text-[#2C3E50]">
-      <section className="relative isolate overflow-hidden bg-[#0B1F3F]">
-        <img
-          src="/images/Yatch_Lusca_2.jpg"
+    <main className="min-h-screen bg-mist pb-20 text-ink">
+      <section className="relative isolate overflow-hidden bg-navy">
+        <RevealImage
+          src="/images/tours/lusca-vip-yacht-tour/Yatch_Lusca_2.jpg"
           alt={slotTitle}
-          className="absolute inset-0 h-full w-full object-cover opacity-[0.38]"
+          tone="dark"
+          containerClassName="absolute inset-0"
+          className="h-full w-full object-cover"
           style={{ objectPosition: 'center 52%' }}
+          decoding="async"
+          fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3F] via-[#0B1F3F]/[0.86] to-[#0B1F3F]/40" />
+        <div className="absolute inset-0 bg-navy/[0.62]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/[0.86] to-navy/40" />
 
         <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <Link
             to="/yachts"
-            className="mb-8 inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-white/[0.82] transition-colors hover:bg-white/10 hover:text-white"
+            className="mb-8 inline-flex items-center border border-white/20 px-4 py-2 text-sm font-semibold text-white/[0.82] transition-colors hover:bg-white/10 hover:text-white"
           >
             <ArrowLeft size={17} className="mr-2" />
             {t('yachtSelection.title')}
           </Link>
 
           <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-bold uppercase text-[#D4AF37]">{slotTime}</p>
-            <h1
-              className="text-4xl font-bold leading-tight text-white md:text-6xl"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold">{slotTime}</p>
+            <h1 className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               {slotTitle}
             </h1>
             <p className="mt-4 max-w-2xl text-base font-light leading-relaxed text-white/[0.78] md:text-lg">
@@ -159,7 +157,7 @@ const YachtListing = () => {
         {loading ? (
           <SkeletonGrid count={3} />
         ) : yachts.length === 0 ? (
-          <p className="rounded-3xl bg-white px-6 py-16 text-center text-lg font-medium text-[#8E99AB] shadow-sm">
+          <p className="rounded-2xl bg-white px-6 py-16 text-center text-lg font-medium text-secondary shadow-sm">
             {t('yachts.empty')}
           </p>
         ) : (
@@ -172,6 +170,7 @@ const YachtListing = () => {
                 lang={i18n.language}
                 viewDetailsLabel={t('card.viewDetails')}
                 whatsappLabel={t('tourDetail.whatsapp')}
+                includedLabel={t('tourDetail.included')}
               />
             ))}
           </div>

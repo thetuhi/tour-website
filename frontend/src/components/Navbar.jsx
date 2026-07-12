@@ -1,25 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Compass, Sun, Moon, Menu, X } from 'lucide-react';
+import { Compass, Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../context/ThemeContext';
+import { WHATSAPP_NUMBER } from '../utils/whatsapp';
 
 const LANGS = [
-  { code: 'en', flag: '🇬🇧', label: 'EN' },
   { code: 'ru', flag: '🇷🇺', label: 'RU' },
+  { code: 'en', flag: '🇬🇧', label: 'EN' },
 ];
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
-  const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Close menu on route change
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location.pathname]);
 
   const handleDestinationsClick = (e) => {
     e.preventDefault();
@@ -38,7 +32,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="sticky top-0 z-50 backdrop-blur-md"
+      className="sticky top-0 z-50"
       style={{
         background: 'var(--glass-bg)',
         borderBottom: '1px solid var(--border)',
@@ -53,7 +47,7 @@ const Navbar = () => {
             className="flex items-center space-x-2 text-primary hover:opacity-80 transition-opacity"
           >
             <Compass size={28} />
-            <span className="font-bold text-lg md:text-xl tracking-wider uppercase">Aura Tours</span>
+            <span className="font-bold text-lg md:text-xl tracking-wider uppercase">Mars Travel</span>
           </Link>
 
           {/* Right side controls */}
@@ -76,8 +70,15 @@ const Navbar = () => {
               >
                 {t('nav.destinations')}
               </a>
+              <Link
+                to="/about"
+                className="text-sm font-medium transition-colors hover:text-primary"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                {t('nav.about')}
+              </Link>
               <a
-                href="https://wa.me/905343194815"
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium transition-colors hover:text-primary"
@@ -99,7 +100,7 @@ const Navbar = () => {
                   title={lang.label}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
                     i18n.language === lang.code
-                      ? 'bg-primary text-slate-900 shadow-sm'
+                      ? 'bg-navy text-white shadow-sm'
                       : 'text-secondary hover:text-primary'
                   }`}
                 >
@@ -109,20 +110,10 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Theme toggle (desktop) */}
-            <button
-              onClick={toggleTheme}
-              title={theme === 'dark' ? t('theme.light') : t('theme.dark')}
-              className="hidden sm:flex w-9 h-9 items-center justify-center rounded-full transition-all duration-200 hover:bg-primary/10 hover:text-primary"
-              style={{ color: 'var(--text-secondary)', border: '1px solid var(--border)' }}
-            >
-              {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
-            </button>
-
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl transition-colors hover:bg-primary/10 text-primary"
+              className="md:hidden w-11 h-11 flex items-center justify-center rounded-xl transition-colors hover:bg-primary/10 text-primary"
               style={{ border: '1px solid var(--border)' }}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -134,8 +125,8 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
-        <div 
-          className="md:hidden border-t animate-in slide-in-from-top duration-300"
+        <div
+          className="md:hidden border-t"
           style={{ background: 'var(--bg)', borderColor: 'var(--border)' }}
         >
           <div className="px-4 py-6 space-y-6">
@@ -143,6 +134,7 @@ const Navbar = () => {
             <div className="flex flex-col space-y-4">
               <Link
                 to="/"
+                onClick={() => setIsMenuOpen(false)}
                 className="text-lg font-semibold px-4 py-2 rounded-xl transition-colors hover:bg-primary/10"
                 style={{ color: 'var(--text)' }}
               >
@@ -156,8 +148,16 @@ const Navbar = () => {
               >
                 {t('nav.destinations')}
               </a>
+              <Link
+                to="/about"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-lg font-semibold px-4 py-2 rounded-xl transition-colors hover:bg-primary/10"
+                style={{ color: 'var(--text)' }}
+              >
+                {t('nav.about')}
+              </Link>
               <a
-                href="https://wa.me/905343194815"
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-lg font-semibold px-4 py-2 rounded-xl transition-colors hover:bg-primary/10"
@@ -179,7 +179,7 @@ const Navbar = () => {
                     onClick={() => i18n.changeLanguage(lang.code)}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all ${
                       i18n.language === lang.code
-                        ? 'bg-primary text-slate-900'
+                        ? 'bg-navy text-white'
                         : 'text-secondary hover:text-primary'
                     }`}
                   >
@@ -188,15 +188,6 @@ const Navbar = () => {
                   </button>
                 ))}
               </div>
-
-              {/* Theme Toggle (Mobile) */}
-              <button
-                onClick={toggleTheme}
-                className="w-12 h-12 flex items-center justify-center rounded-2xl transition-all"
-                style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
-              >
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
             </div>
           </div>
         </div>

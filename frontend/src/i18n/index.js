@@ -13,10 +13,12 @@ i18n
       en: { translation: en },
       ru: { translation: ru },
     },
-    fallbackLng: 'en',
+    // First visit opens in Russian; only an explicit choice saved in
+    // localStorage overrides it (browser language is intentionally ignored).
+    fallbackLng: 'ru',
     supportedLngs: ['en', 'ru'],
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['localStorage'],
       caches: ['localStorage'],
       lookupLocalStorage: 'i18nextLng',
     },

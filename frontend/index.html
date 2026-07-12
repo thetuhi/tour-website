@@ -4,11 +4,113 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Aura Tours — Exclusive yacht charters, local gems, and grand excursions in Antalya, Turkey. Premium travel experiences in English and Russian." />
-    <meta name="keywords" content="Antalya tours, yacht charter, Turkey excursions, Pamukkale, Cappadocia, travel" />
-    <title>Aura Tours — Premium Tours in Antalya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+    />
+    <link rel="preload" as="image" href="/images/Antalya-kapak.jpg" fetchpriority="high" />
+    <meta name="description" content="MARS TRAVEL — Private yacht escapes, signature experiences, and curated journeys in Antalya, Turkey. Premium travel experiences in English and Russian." />
+    <meta name="keywords" content="Antalya experiences, private yacht, Turkey journeys, Pamukkale, Cappadocia, travel" />
+    <title>MARS TRAVEL — Premium Travel Experiences in Antalya</title>
+    <style>
+      /* ── MARS TRAVEL boot splash ─────────────────────────────
+         Inline so it paints as soon as the HTML arrives — before
+         the JS bundle or any stylesheet loads. Dismissed from
+         main.jsx once the app has mounted.
+
+         Sequence: gold line draws → wordmark resolves out of a
+         soft blur with expanding letter-spacing → eyebrow drifts
+         in → line keeps a quiet breathing pulse. Exit: a curtain
+         lift revealing the page underneath. */
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(ellipse at center, #10284E 0%, #0B1F3F 55%, #081733 100%);
+        transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+        will-change: transform;
+      }
+      #splash.splash--hide {
+        transform: translateY(-100%);
+        pointer-events: none;
+      }
+      .splash-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        transition: opacity 0.35s ease;
+      }
+      #splash.splash--hide .splash-inner {
+        opacity: 0;
+      }
+      .splash-line {
+        order: 0;
+        width: 64px;
+        height: 2px;
+        background: #D4AF37;
+        transform-origin: center;
+        animation:
+          splash-line-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both,
+          splash-line-breathe 1.8s ease-in-out 1.2s infinite;
+      }
+      .splash-title {
+        order: 1;
+        margin: 0;
+        font: 700 clamp(28px, 6vw, 46px)/1.1 'Playfair Display', Georgia, serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #ffffff;
+        animation: splash-title-in 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+      }
+      .splash-eyebrow {
+        order: 2;
+        margin: 0;
+        font: 600 11px/1 Inter, 'Noto Sans', sans-serif;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: #D4AF37;
+        animation: splash-fade-up 0.8s ease 0.65s both;
+      }
+      @keyframes splash-line-in {
+        from { transform: scaleX(0); }
+        to   { transform: scaleX(1); }
+      }
+      @keyframes splash-line-breathe {
+        0%, 100% { opacity: 1; }
+        50%      { opacity: 0.45; }
+      }
+      @keyframes splash-title-in {
+        from { opacity: 0; letter-spacing: 0.02em; filter: blur(8px); transform: translateY(10px); }
+        to   { opacity: 1; letter-spacing: 0.08em; filter: blur(0); transform: none; }
+      }
+      @keyframes splash-fade-up {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #splash { transition: opacity 0.25s ease; }
+        #splash.splash--hide { transform: none; opacity: 0; }
+        .splash-line,
+        .splash-title,
+        .splash-eyebrow { animation: none; }
+        .splash-line { opacity: 0.7; }
+      }
+    </style>
   </head>
   <body>
+    <div id="splash" role="status" aria-label="MARS TRAVEL">
+      <div class="splash-inner">
+        <span class="splash-line" aria-hidden="true"></span>
+        <p class="splash-title">Mars Travel</p>
+        <p class="splash-eyebrow">ANTALYA &middot; T&Uuml;RK&#304;YE</p>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

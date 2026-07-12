@@ -125,7 +125,7 @@ Bu sistem manuel mesajlaşma yükünü azaltır ve işletmeye gelen talepleri da
 
 ## Görsel Yönetimi ve Responsive Yapı
 
-Görseller dış linklerden arındırılarak `frontend/public/images` klasörüne taşınmıştır. Veritabanı artık yalnızca yerel public yollarını referans alır; örnek olarak `/images/Yatch_Lusca.jpg` ve `/images/Antalya-Akvaryum.jpg` kullanılır.
+Görseller dış linklerden arındırılarak `frontend/public/images/tours` altındaki tur klasörlerine taşınmıştır. Veritabanı artık yalnızca yerel public yollarını referans alır; örnek olarak `/images/tours/lusca-vip-yacht-tour/Yatch_Lusca.jpg` ve `/images/tours/antalya-aquarium-complex-experience/Antalya-Akvaryum.jpg` kullanılır.
 
 Bu kararın etkileri:
 
