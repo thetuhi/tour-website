@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ImageOff } from 'lucide-react';
 
 /**
- * MARS TRAVEL image reveal.
+ * ANTALYA JOURNEY image reveal.
  *
  * While loading: a quiet, brand-toned "breathing" wash (no spinner, no shimmer).
  * When the image has genuinely decoded: a cinematic fade + settle (opacity/transform
@@ -28,15 +28,18 @@ const RevealImage = ({
   const [instant, setInstant] = useState(false);
 
   // Cached images are complete before onLoad can fire — reveal them instantly.
+  //
+  // Only a decoded image (naturalWidth > 0) is treated as ready. `complete`
+  // with a zero naturalWidth must NOT be read as a failure: a lazy image that
+  // the browser has deliberately not started fetching reports exactly that,
+  // and marking it failed here would unmount the <img> so its onLoad could
+  // never fire — the image would then never appear. Real failures arrive
+  // through onError below.
   useEffect(() => {
     const img = imgRef.current;
-    if (img && img.complete) {
-      if (img.naturalWidth > 0) {
-        setInstant(true);
-        setStatus('ready');
-      } else {
-        setStatus('error');
-      }
+    if (img && img.complete && img.naturalWidth > 0) {
+      setInstant(true);
+      setStatus('ready');
     }
   }, []);
 

@@ -3,12 +3,17 @@
     "home": "Home",
     "destinations": "Experiences",
     "about": "About Us",
-    "contact": "Contact"
+    "contact": "Contact",
+    "menu": "Menu",
+    "theme": {
+      "toDark": "Switch to dark theme",
+      "toLight": "Switch to light theme"
+    }
   },
   "hero": {
     "location": "Antalya, TÜRKİYE",
     "title": "Discover Your Next Adventure",
-    "subtitle": "Private yacht escapes, cultural wonders, and adrenaline-fueled journeys — curated by MARS TRAVEL.",
+    "subtitle": "Private yacht escapes, cultural wonders, and adrenaline-fueled journeys — curated by {{brand}}.",
     "cta": "Discover Experiences"
   },
   "yachts": {
@@ -55,7 +60,7 @@
     "back": "Back to Experiences",
     "included": "What's Included",
     "interested": "Interested?",
-    "contactDesc": "Speak directly with your MARS TRAVEL representative on WhatsApp to plan the details of your experience.",
+    "contactDesc": "Speak directly with your {{brand}} representative on WhatsApp to plan the details of your experience.",
     "whatsapp": "Request This Experience",
     "scan": "Scan to request",
     "notFound": "Experience Not Found",
@@ -79,12 +84,16 @@
     "rights": "© {{year}} {{brand}}. All rights reserved.",
     "license": "Travel Agency Operating License No: {{number}}",
     "licenseShort": "Operating License No: {{number}}",
-    "relation": "{{brand}} operates as an online sales and marketing channel of {{agency}}. Reservations, sales, and payment transactions are handled by {{agency}}.",
+    "operates": "Operates {{brand}}. All reservations, sales and payments are concluded with this agency.",
+    "follow": "Follow Us",
+    "showMap": "Show map",
+    "mapTitle": "Our office on Google Maps",
+    "directions": "Get directions",
     "explore": "Explore",
     "policies": "Policies",
     "official": "Official Agency",
     "yachts": "Yacht Experiences",
-    "location": "Antalya, Türkiye"
+    "tursab": "Member of the Association of Turkish Travel Agencies (TÜRSAB)"
   },
   "about": {
     "eyebrow": "About Us",
@@ -115,6 +124,15 @@
     "ctaTitle": "Let's Plan Your Experience",
     "ctaDesc": "Tell us what kind of day you are imagining — our team will shape it around you.",
     "cta": "Chat on WhatsApp"
+  },
+  "faq": {
+    "nav": "FAQ",
+    "eyebrow": "Good to Know",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Payment, insurance, changing your date and where to meet the bus — the questions guests ask us most often.",
+    "ctaTitle": "Still have a question?",
+    "ctaDesc": "Write to us on WhatsApp and a representative will answer you directly.",
+    "empty": "No questions available at the moment."
   },
   "policy": {
     "eyebrow": "Legal & Policies",

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import {
@@ -13,14 +13,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { generateWhatsAppLink } from '../utils/whatsapp';
 import { recordLead } from '../utils/leads';
-import { TOURS_API } from '../utils/api';
+import { getTourById } from '../data/tours';
+import { BRAND_NAME } from '../config/agency';
 import RevealImage from '../components/RevealImage';
 import ImageLightbox from '../components/ImageLightbox';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const fallbackImage = '/images/tours/lusca-vip-yacht-tour/Yatch_Lusca.jpg';
+const fallbackImage = '/images/tours/lusca-vip-yacht-tour/lusca-1.webp';
 
 const TourDetail = () => {
   const { id } = useParams();
@@ -28,31 +29,14 @@ const TourDetail = () => {
   const slot = new URLSearchParams(location.search).get('slot');
 
   const { t, i18n } = useTranslation();
-  const [tour, setTour] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const isRu = i18n.language === 'ru';
-
-  useEffect(() => {
-    fetch(`${TOURS_API}/${id}`)
-      .then(response => response.json())
-      .then(data => setTour(data))
-      .catch(error => console.error('Error fetching tour:', error))
-      .finally(() => setLoading(false));
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-mist">
-        <div className="h-16 w-16 animate-spin rounded-full border-4 border-line border-t-gold" />
-      </div>
-    );
-  }
+  const tour = getTourById(id);
 
   if (!tour) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <h2 className="mb-4 font-display text-3xl font-bold text-navy">{t('tourDetail.notFound')}</h2>
+        <h2 className="mb-4 font-display text-3xl font-bold text-heading">{t('tourDetail.notFound')}</h2>
         <Link to="/" className="font-semibold text-primary hover:underline">
           {t('tourDetail.returnHome')}
         </Link>
@@ -63,10 +47,14 @@ const TourDetail = () => {
   const displayTitle = isRu && tour.titleRu ? tour.titleRu : tour.titleEn;
   const displayDescription = isRu && tour.descriptionRu ? tour.descriptionRu : tour.descriptionEn;
   const whatsappUrl = generateWhatsAppLink(i18n.language, tour.titleEn, slot, tour.contactPhone);
+  // The QR always encodes the short English link: percent-encoded Cyrillic
+  // text makes the URL ~4x longer, which turns the QR into an unscannably
+  // dense pattern at this size.
+  const qrWhatsappUrl = generateWhatsAppLink('en', tour.titleEn, slot, tour.contactPhone);
   const displayLocation = isRu ? (tour.locationRu || tour.locationEn) : tour.locationEn;
   const displayDuration = isRu ? (tour.durationRu || tour.durationEn) : tour.durationEn;
   const handleRequestClick = () =>
-    recordLead({ tourId: tour.id, language: i18n.language, source: 'tour-detail', timeSlot: slot });
+    recordLead({ tourId: tour.id, tourTitle: tour.titleEn, language: i18n.language, source: 'tour-detail', timeSlot: slot });
   const images = tour.imageUrls?.length ? tour.imageUrls : [fallbackImage];
   const backTarget = slot ? `/yachts/${slot}` : '/';
   const slotTime = slot === 'day'
@@ -84,7 +72,7 @@ const TourDetail = () => {
         : tour.category;
 
   return (
-    <main className="min-h-screen bg-mist pb-28 text-ink lg:pb-20">
+    <div className="min-h-screen bg-mist pb-28 text-ink lg:pb-20">
       <section className="relative isolate overflow-hidden bg-navy">
         <RevealImage
           src={images[0]}
@@ -200,11 +188,11 @@ const TourDetail = () => {
             )}
           </div>
 
-          <article className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(11,31,63,0.06)] md:p-8">
+          <article className="rounded-2xl bg-surface p-6 shadow-[0_4px_24px_rgba(11,31,63,0.06)] md:p-8">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold">
               {t('tourDetail.eyebrow')}
             </p>
-            <h2 className="font-display text-3xl font-bold leading-tight text-navy md:text-4xl">
+            <h2 className="font-display text-3xl font-bold leading-tight text-heading md:text-4xl">
               {displayTitle}
             </h2>
             <p className="mt-5 text-base font-light leading-8 text-secondary md:text-lg">
@@ -212,12 +200,12 @@ const TourDetail = () => {
             </p>
           </article>
 
-          <article className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(11,31,63,0.06)] md:p-8">
+          <article className="rounded-2xl bg-surface p-6 shadow-[0_4px_24px_rgba(11,31,63,0.06)] md:p-8">
             <div className="mb-6 flex items-center gap-3">
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-mist text-gold">
                 <CheckCircle size={23} />
               </span>
-              <h2 className="font-display text-2xl font-bold text-navy">
+              <h2 className="font-display text-2xl font-bold text-heading">
                 {t('tourDetail.included')}
               </h2>
             </div>
@@ -237,12 +225,12 @@ const TourDetail = () => {
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="hidden rounded-2xl bg-white p-6 shadow-[0_12px_48px_rgba(11,31,63,0.10)] lg:block">
-            <h3 className="font-display text-2xl font-bold text-navy">
+          <div className="hidden rounded-2xl bg-surface p-6 shadow-[0_12px_48px_rgba(11,31,63,0.10)] lg:block">
+            <h3 className="font-display text-2xl font-bold text-heading">
               {t('tourDetail.interested')}
             </h3>
             <p className="mt-3 text-sm font-light leading-relaxed text-secondary">
-              {t('tourDetail.contactDesc')}
+              {t('tourDetail.contactDesc', { brand: BRAND_NAME })}
             </p>
 
             <a
@@ -250,7 +238,7 @@ const TourDetail = () => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleRequestClick}
-              className="mt-6 flex min-h-14 w-full items-center justify-center gap-2 bg-navy px-6 text-xs font-bold uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy"
+              className="mt-6 flex min-h-14 w-full items-center justify-center gap-2 bg-navy px-6 text-xs font-bold uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy dark:bg-gold dark:text-navy dark:hover:bg-white"
             >
               <FaWhatsapp size={18} />
               {t('tourDetail.whatsapp')}
@@ -259,7 +247,7 @@ const TourDetail = () => {
             <div className="mt-6 border-t border-line pt-6 text-center">
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-secondary">{t('tourDetail.scan')}</p>
               <div className="inline-block border border-line bg-white p-3">
-                <QRCodeSVG value={whatsappUrl} size={112} level="M" />
+                <QRCodeSVG value={qrWhatsappUrl} size={112} level="M" />
               </div>
             </div>
           </div>
@@ -289,7 +277,7 @@ const TourDetail = () => {
           onClose={() => setLightboxIndex(null)}
         />
       )}
-    </main>
+    </div>
   );
 };
 

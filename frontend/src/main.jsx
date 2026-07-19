@@ -1,15 +1,27 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import './i18n/index.js';   // ← initialise i18next BEFORE rendering
 import './index.css';
 import App from './App.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
+import { initAnalytics } from './utils/analytics.js';
 
+initAnalytics();
+
+/* LazyMotion + domAnimation loads only the DOM animation features (~60% of
+   the full framer-motion bundle). It is why components import `m` instead of
+   `motion` — `motion.*` would pull the whole feature set back in. */
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ThemeProvider>
+      <LazyMotion features={domAnimation} strict>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </LazyMotion>
+    </ThemeProvider>
   </StrictMode>,
 );
 

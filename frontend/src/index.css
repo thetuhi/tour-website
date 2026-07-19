@@ -6,7 +6,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Base layer: MARS TRAVEL single premium theme ─────── */
+/* ── Base layer: ANTALYA JOURNEY premium theme (light default,
+     dark via `.dark` on <html> — see useTheme hook) ─────── */
 @layer base {
   html {
     font-family: 'Inter', 'Noto Sans', sans-serif;
@@ -21,9 +22,22 @@
     --text-secondary: #687386;
     --border: #E6ECF2;
     --glass-bg: rgba(255, 255, 255, 0.88);
+    --ink: #2C3E50;
+    --heading: #0B1F3F;
     --navy: #0B1F3F;
     --gold: #D4AF37;
     --accent: #00B4D8;
+  }
+
+  :root.dark {
+    --bg: #07111F;
+    --surface: #0E1E33;
+    --text: #E8EDF6;
+    --text-secondary: #9AA8BF;
+    --border: #1C314F;
+    --glass-bg: rgba(7, 17, 31, 0.88);
+    --ink: #D7DEEA;
+    --heading: #F1F5FB;
   }
 
   body {
@@ -84,6 +98,9 @@ a,
 }
 .img-reveal--light .img-reveal__placeholder {
   background: linear-gradient(135deg, #E9EEF4 0%, #DDE5EE 55%, #EEF2F7 100%);
+}
+.dark .img-reveal--light .img-reveal__placeholder {
+  background: linear-gradient(135deg, #12233C 0%, #0E1E33 55%, #16294A 100%);
 }
 .img-reveal--dark .img-reveal__placeholder {
   background: linear-gradient(135deg, #11284E 0%, #0B1F3F 55%, #142E58 100%);

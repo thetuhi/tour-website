@@ -1,31 +1,22 @@
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import { generateWhatsAppLink } from '../utils/whatsapp';
 import { recordLead } from '../utils/leads';
-import { TOURS_API } from '../utils/api';
+import { getToursByCategory, getCoverImage } from '../data/tours';
 import RevealImage from '../components/RevealImage';
-
-const SkeletonGrid = ({ count = 3 }) => (
-  <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-    {Array.from({ length: count }).map((_, index) => (
-      <div key={index} className="h-[560px] animate-pulse rounded-2xl bg-white shadow-[0_4px_24px_rgba(11,31,63,0.06)]" />
-    ))}
-  </div>
-);
 
 const YachtCard = ({ tour, slot, lang, viewDetailsLabel, whatsappLabel, includedLabel }) => {
   const isRu = lang === 'ru';
   const title = isRu && tour.titleRu ? tour.titleRu : tour.titleEn;
   const description = isRu && tour.descriptionRu ? tour.descriptionRu : tour.descriptionEn;
-  const coverImage = tour.imageUrls?.[0] || '/images/tours/lusca-vip-yacht-tour/Yatch_Lusca.jpg';
+  const coverImage = getCoverImage(tour);
   const whatsappUrl = generateWhatsAppLink(lang, tour.titleEn, slot, tour.contactPhone);
   const highlights = tour.includedItems?.slice(0, 4) || [];
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(11,31,63,0.06)] transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[0_14px_36px_rgba(11,31,63,0.12)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_4px_20px_rgba(11,31,63,0.06)] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_14px_36px_rgba(11,31,63,0.16)]">
       <Link to={`/tour/${tour.id}${slot ? '?slot=' + slot : ''}`} className="relative block h-60 overflow-hidden">
         <RevealImage
           src={coverImage}
@@ -44,7 +35,7 @@ const YachtCard = ({ tour, slot, lang, viewDetailsLabel, whatsappLabel, included
 
       <div className="flex flex-1 flex-col p-6">
         <div>
-          <h2 className="font-display text-2xl font-bold leading-tight text-navy">
+          <h2 className="font-display text-2xl font-bold leading-tight text-heading">
             {title}
           </h2>
 
@@ -54,7 +45,7 @@ const YachtCard = ({ tour, slot, lang, viewDetailsLabel, whatsappLabel, included
 
           {highlights.length > 0 && (
             <div className="mt-5">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-navy">{includedLabel}</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-heading">{includedLabel}</p>
               <div className="flex flex-wrap gap-2">
                 {highlights.map(item => (
                   <span
@@ -82,8 +73,8 @@ const YachtCard = ({ tour, slot, lang, viewDetailsLabel, whatsappLabel, included
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => recordLead({ tourId: tour.id, language: lang, source: 'yacht-listing', timeSlot: slot })}
-            className="flex min-h-14 w-full items-center justify-center gap-2 bg-navy px-6 text-xs font-bold uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy"
+            onClick={() => recordLead({ tourId: tour.id, tourTitle: tour.titleEn, language: lang, source: 'yacht-listing', timeSlot: slot })}
+            className="flex min-h-14 w-full items-center justify-center gap-2 bg-navy px-6 text-xs font-bold uppercase tracking-[0.15em] text-white transition-colors duration-300 hover:bg-gold hover:text-navy dark:bg-gold dark:text-navy dark:hover:bg-white"
           >
             <FaWhatsapp size={18} />
             {whatsappLabel}
@@ -97,16 +88,7 @@ const YachtCard = ({ tour, slot, lang, viewDetailsLabel, whatsappLabel, included
 const YachtListing = () => {
   const { t, i18n } = useTranslation();
   const { slot } = useParams();
-  const [yachts, setYachts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch(`${TOURS_API}/yachts`)
-      .then(response => response.json())
-      .then(data => setYachts(data))
-      .catch(error => console.error('Error fetching yachts:', error))
-      .finally(() => setLoading(false));
-  }, []);
+  const yachts = getToursByCategory('YACHT');
 
   const slotTitle = slot === 'day'
     ? t('yachtSelection.dayTour.title')
@@ -117,10 +99,10 @@ const YachtListing = () => {
     : t('yachtSelection.sunsetTour.time');
 
   return (
-    <main className="min-h-screen bg-mist pb-20 text-ink">
+    <div className="min-h-screen bg-mist pb-20 text-ink">
       <section className="relative isolate overflow-hidden bg-navy">
         <RevealImage
-          src="/images/tours/lusca-vip-yacht-tour/Yatch_Lusca_2.jpg"
+          src="/images/tours/lusca-vip-yacht-tour/lusca-2.webp"
           alt={slotTitle}
           tone="dark"
           containerClassName="absolute inset-0"
@@ -154,10 +136,8 @@ const YachtListing = () => {
       </section>
 
       <section className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
-        {loading ? (
-          <SkeletonGrid count={3} />
-        ) : yachts.length === 0 ? (
-          <p className="rounded-2xl bg-white px-6 py-16 text-center text-lg font-medium text-secondary shadow-sm">
+        {yachts.length === 0 ? (
+          <p className="rounded-2xl bg-surface px-6 py-16 text-center text-lg font-medium text-secondary shadow-sm">
             {t('yachts.empty')}
           </p>
         ) : (
@@ -176,7 +156,7 @@ const YachtListing = () => {
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 };
 

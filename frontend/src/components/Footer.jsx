@@ -1,10 +1,18 @@
 import { Link } from 'react-router-dom';
-import { Compass, MapPin } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { MapPin } from 'lucide-react';
+import LogoMark from './Logo';
+import { FaTiktok, FaWhatsapp } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import { WHATSAPP_NUMBER } from '../utils/whatsapp';
+import { recordLead } from '../utils/leads';
 import { POLICIES, POLICY_ORDER } from '../content/policies';
-import { BRAND_NAME, AGENCY_NAME, AGENCY_LICENSE_NUMBER } from '../config/agency';
+import { BRAND_NAME, AGENCY_NAME, AGENCY_LICENSE_NUMBER, SOCIAL_LINKS, OFFICE } from '../config/agency';
+import { trackEvent } from '../utils/analytics';
+import OfficeMap from './OfficeMap';
+
+/** Icon per social platform; extend alongside SOCIAL_LINKS in config/agency.js. */
+const SOCIAL_ICONS = { tiktok: FaTiktok };
+import TursabBadge from './TursabBadge';
 
 const CONTACT_PHONE_DISPLAY = '+90 534 319 48 15';
 
@@ -29,19 +37,49 @@ const Footer = ({ withCtaClearance = false }) => {
           {/* Brand + relationship statement */}
           <div>
             <Link to="/" className="inline-flex items-center gap-2.5 text-white transition-opacity hover:opacity-80">
-              <Compass size={22} className="text-gold" />
-              <span className="font-display text-lg font-bold uppercase tracking-[0.25em]">
+              <LogoMark size={26} className="text-primary" />
+              <span className="font-display text-lg font-bold uppercase tracking-[0.18em]">
                 {BRAND_NAME}
               </span>
             </Link>
-            <p className="mt-5 max-w-sm text-sm font-light leading-relaxed text-white/60">
-              {t('footer.relation', { brand: BRAND_NAME, agency: AGENCY_NAME })}
-            </p>
+            {SOCIAL_LINKS.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45">
+                  {t('footer.follow')}
+                </h3>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  {SOCIAL_LINKS.map(({ id, label, handle, url }) => {
+                    const Icon = SOCIAL_ICONS[id];
+                    return (
+                      <a
+                        key={id}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${label} — ${handle}`}
+                        onClick={() => trackEvent('social_click', { platform: id })}
+                        className="inline-flex items-center gap-2.5 border border-white/15 px-4 py-2.5 text-sm text-white/75 transition-colors hover:border-gold/60 hover:text-white"
+                      >
+                        {Icon && <Icon size={16} className="shrink-0 text-gold" />}
+                        {handle}
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Office map sits in this column: it fills the space the brand
+                copy leaves empty, instead of stacking under the agency block
+                and stretching the whole footer. */}
+            <div className="mt-8 max-w-xs">
+              <OfficeMap />
+            </div>
           </div>
 
           {/* Explore */}
           <nav aria-label={t('footer.explore')}>
-            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-gold">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45">
               {t('footer.explore')}
             </h3>
             <ul className="mt-5 space-y-3 text-sm">
@@ -61,10 +99,16 @@ const Footer = ({ withCtaClearance = false }) => {
                 </Link>
               </li>
               <li>
+                <Link to="/faq" className="text-white/70 transition-colors hover:text-white">
+                  {t('faq.nav')}
+                </Link>
+              </li>
+              <li>
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => recordLead({ language: i18n.language, source: 'footer-nav' })}
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   {t('nav.contact')}
@@ -75,7 +119,7 @@ const Footer = ({ withCtaClearance = false }) => {
 
           {/* Policies */}
           <nav aria-label={t('footer.policies')}>
-            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-gold">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45">
               {t('footer.policies')}
             </h3>
             <ul className="mt-5 space-y-3 text-sm">
@@ -94,7 +138,7 @@ const Footer = ({ withCtaClearance = false }) => {
 
           {/* Official agency */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-gold">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/45">
               {t('footer.official')}
             </h3>
             <div className="mt-5 border border-white/15 bg-white/[0.04] p-5">
@@ -104,15 +148,27 @@ const Footer = ({ withCtaClearance = false }) => {
               <p className="mt-2 text-xs leading-relaxed text-white/60">
                 {t('footer.license', { number: AGENCY_LICENSE_NUMBER })}
               </p>
+              <p className="mt-3 text-xs leading-6 text-white/55">
+                {t('footer.operates', { brand: BRAND_NAME })}
+              </p>
+
+              <div className="mt-4 border-t border-white/10 pt-4">
+                <TursabBadge variant="full" onDark />
+                <p className="mt-3 text-[11px] leading-relaxed text-white/50">
+                  {t('footer.tursab')}
+                </p>
+              </div>
+
               <div className="mt-4 space-y-2.5 text-xs text-white/60">
                 <p className="flex items-center gap-2">
                   <MapPin size={14} className="shrink-0 text-gold" />
-                  {t('footer.location')}
+                  {OFFICE.shortAddress}
                 </p>
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => recordLead({ language: i18n.language, source: 'footer-phone' })}
                   className="flex items-center gap-2 transition-colors hover:text-white"
                 >
                   <FaWhatsapp size={14} className="shrink-0 text-gold" />

@@ -19,7 +19,7 @@ const PolicyPage = () => {
   if (!policy) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <h2 className="mb-4 font-display text-3xl font-bold text-navy">{t('policy.notFound')}</h2>
+        <h2 className="mb-4 font-display text-3xl font-bold text-heading">{t('policy.notFound')}</h2>
         <Link to="/" className="font-semibold text-primary hover:underline">
           {t('policy.back')}
         </Link>
@@ -30,7 +30,7 @@ const PolicyPage = () => {
   const otherPolicies = POLICY_ORDER.filter(key => key !== slug);
 
   return (
-    <main className="min-h-screen bg-mist pb-16 text-ink">
+    <div className="min-h-screen bg-mist pb-16 text-ink">
       <section className="bg-navy">
         <div className="mx-auto max-w-4xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
           <Link
@@ -54,12 +54,12 @@ const PolicyPage = () => {
       </section>
 
       <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <article className="-mt-8 rounded-2xl bg-white p-6 shadow-[0_12px_48px_rgba(11,31,63,0.10)] sm:p-10">
+        <article className="-mt-8 rounded-2xl bg-surface p-6 shadow-[0_12px_48px_rgba(11,31,63,0.10)] sm:p-10">
           <p className="text-base font-light leading-8 text-secondary">{policy.intro}</p>
 
           {policy.sections.map(section => (
             <section key={section.heading} className="mt-9">
-              <h2 className="font-display text-xl font-bold text-navy sm:text-2xl">
+              <h2 className="font-display text-xl font-bold text-heading sm:text-2xl">
                 {section.heading}
               </h2>
               {section.paragraphs.map(paragraph => (
@@ -71,7 +71,7 @@ const PolicyPage = () => {
           ))}
 
           <div className="mt-12 border-t border-line pt-6">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-navy">{AGENCY_NAME}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-heading">{AGENCY_NAME}</p>
             <p className="mt-1 text-xs text-secondary">
               {t('footer.license', { number: AGENCY_LICENSE_NUMBER })}
             </p>
@@ -87,7 +87,7 @@ const PolicyPage = () => {
               <Link
                 key={key}
                 to={`/policies/${key}`}
-                className="border border-line bg-white px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-gold hover:text-navy"
+                className="border border-line bg-surface px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-gold hover:text-primary"
               >
                 {POLICIES[key][lang].title}
               </Link>
@@ -95,7 +95,7 @@ const PolicyPage = () => {
           </div>
         </nav>
       </section>
-    </main>
+    </div>
   );
 };
 

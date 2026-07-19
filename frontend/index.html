@@ -10,12 +10,25 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
     />
-    <link rel="preload" as="image" href="/images/Antalya-kapak.jpg" fetchpriority="high" />
-    <meta name="description" content="MARS TRAVEL — Private yacht escapes, signature experiences, and curated journeys in Antalya, Turkey. Premium travel experiences in English and Russian." />
+    <link rel="preload" as="image" href="/images/antalya-kapak.webp" fetchpriority="high" />
+    <meta name="description" content="ANTALYA JOURNEY — Private yacht escapes, signature experiences, and curated journeys in Antalya, Turkey. Premium travel experiences in English and Russian." />
     <meta name="keywords" content="Antalya experiences, private yacht, Turkey journeys, Pamukkale, Cappadocia, travel" />
-    <title>MARS TRAVEL — Premium Travel Experiences in Antalya</title>
+    <title>ANTALYA JOURNEY</title>
+    <script>
+      /* Applies the stored theme before first paint so a returning dark-mode
+         visitor never sees a flash of the light theme. Kept in sync with
+         THEME_STORAGE_KEY in src/context/ThemeContext.jsx. */
+      (function () {
+        try {
+          if (localStorage.getItem('mars-theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+          }
+        } catch (e) {}
+      })();
+    </script>
     <style>
-      /* ── MARS TRAVEL boot splash ─────────────────────────────
+      /* ── ANTALYA JOURNEY boot splash ─────────────────────────
          Inline so it paints as soon as the HTML arrives — before
          the JS bundle or any stylesheet loads. Dismissed from
          main.jsx once the app has mounted.
@@ -49,33 +62,44 @@
       #splash.splash--hide .splash-inner {
         opacity: 0;
       }
-      .splash-line {
+      .splash-mark {
         order: 0;
+        width: 54px;
+        height: 54px;
+        color: #00B4D8;
+        animation: splash-mark-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+      .splash-line {
+        order: 1;
         width: 64px;
         height: 2px;
         background: #D4AF37;
         transform-origin: center;
         animation:
-          splash-line-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both,
-          splash-line-breathe 1.8s ease-in-out 1.2s infinite;
+          splash-line-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both,
+          splash-line-breathe 1.8s ease-in-out 1.5s infinite;
+      }
+      @keyframes splash-mark-in {
+        from { opacity: 0; transform: translateY(14px) scale(0.86); }
+        to   { opacity: 1; transform: none; }
       }
       .splash-title {
-        order: 1;
+        order: 2;
         margin: 0;
-        font: 700 clamp(28px, 6vw, 46px)/1.1 'Playfair Display', Georgia, serif;
+        font: 700 clamp(24px, 5.2vw, 40px)/1.1 'Playfair Display', Georgia, serif;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: #ffffff;
-        animation: splash-title-in 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+        animation: splash-title-in 1s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
       }
       .splash-eyebrow {
-        order: 2;
+        order: 3;
         margin: 0;
         font: 600 11px/1 Inter, 'Noto Sans', sans-serif;
         letter-spacing: 0.35em;
         text-transform: uppercase;
         color: #D4AF37;
-        animation: splash-fade-up 0.8s ease 0.65s both;
+        animation: splash-fade-up 0.8s ease 0.95s both;
       }
       @keyframes splash-line-in {
         from { transform: scaleX(0); }
@@ -96,6 +120,7 @@
       @media (prefers-reduced-motion: reduce) {
         #splash { transition: opacity 0.25s ease; }
         #splash.splash--hide { transform: none; opacity: 0; }
+        .splash-mark,
         .splash-line,
         .splash-title,
         .splash-eyebrow { animation: none; }
@@ -104,10 +129,16 @@
     </style>
   </head>
   <body>
-    <div id="splash" role="status" aria-label="MARS TRAVEL">
+    <div id="splash" role="status" aria-label="ANTALYA JOURNEY">
       <div class="splash-inner">
+        <svg class="splash-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M21.5 38 V7 L7.5 38 Z" fill="currentColor"/>
+          <path d="M25.5 38 V16 L38.5 38 Z" fill="currentColor" opacity=".55"/>
+          <path d="M3 42.5 q6 3 11 0 t11 0 t11 0" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" fill="none" opacity=".8"/>
+        </svg>
         <span class="splash-line" aria-hidden="true"></span>
-        <p class="splash-title">Mars Travel</p>
+        <p class="splash-title">Antalya Journey</p>
         <p class="splash-eyebrow">ANTALYA &middot; T&Uuml;RK&#304;YE</p>
       </div>
     </div>

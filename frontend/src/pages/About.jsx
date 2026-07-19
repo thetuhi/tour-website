@@ -27,11 +27,11 @@ const About = () => {
   ];
 
   return (
-    <main className="min-h-screen bg-mist pb-20 text-ink">
+    <div className="min-h-screen bg-mist pb-20 text-ink">
       {/* Navy hero band */}
       <section className="relative isolate overflow-hidden bg-navy">
         <RevealImage
-          src="/images/tours/lusca-vip-yacht-tour/Yatch_Lusca_2.jpg"
+          src="/images/tours/lusca-vip-yacht-tour/lusca-2.webp"
           alt=""
           tone="dark"
           containerClassName="absolute inset-0"
@@ -57,11 +57,11 @@ const About = () => {
 
       {/* Story */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <article className="-mt-10 rounded-2xl bg-white p-6 shadow-[0_12px_48px_rgba(11,31,63,0.10)] sm:p-10">
+        <article className="-mt-10 rounded-2xl bg-surface p-6 shadow-[0_12px_48px_rgba(11,31,63,0.10)] sm:p-10">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold">
             {t('about.storyEyebrow')}
           </p>
-          <h2 className="max-w-2xl font-display text-3xl font-bold leading-tight text-navy md:text-4xl">
+          <h2 className="max-w-2xl font-display text-3xl font-bold leading-tight text-heading md:text-4xl">
             {t('about.storyTitle')}
           </h2>
           <div className="mt-6 max-w-3xl space-y-4 text-base font-light leading-8 text-secondary md:text-lg">
@@ -70,7 +70,7 @@ const About = () => {
           </div>
 
           <div className="mt-10 border-t border-line pt-6">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-navy">{AGENCY_NAME}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-heading">{AGENCY_NAME}</p>
             <p className="mt-1 text-xs text-secondary">
               {t('footer.license', { number: AGENCY_LICENSE_NUMBER })}
             </p>
@@ -84,12 +84,12 @@ const About = () => {
           {values.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(11,31,63,0.06)] md:p-7"
+              className="rounded-2xl bg-surface p-6 shadow-[0_4px_24px_rgba(11,31,63,0.06)] md:p-7"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-mist text-gold">
                 <Icon size={22} />
               </span>
-              <h3 className="mt-5 font-display text-xl font-bold text-navy">{title}</h3>
+              <h3 className="mt-5 font-display text-xl font-bold text-heading">{title}</h3>
               <p className="mt-3 text-sm font-light leading-relaxed text-secondary">{desc}</p>
             </div>
           ))}
@@ -117,7 +117,7 @@ const About = () => {
           </a>
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Moon, Sun } from 'lucide-react';
 import RevealImage from '../components/RevealImage';
+import { BRAND_NAME } from '../config/agency';
 
 const YachtSelection = () => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const YachtSelection = () => {
       <div className="grid min-h-[calc(100svh-64px)] md:h-full md:min-h-0 md:grid-rows-[minmax(220px,42vh)_1fr]">
         <header className="relative isolate flex min-h-[280px] items-center justify-center overflow-hidden md:min-h-0">
           <RevealImage
-            src="/images/tours/lusca-vip-yacht-tour/Yatch_Lusca_2.jpg"
+            src="/images/tours/lusca-vip-yacht-tour/lusca-2.webp"
             alt="Luxury yacht at sea"
             tone="dark"
             cinematic
@@ -49,7 +50,7 @@ const YachtSelection = () => {
 
           <div className="relative mx-auto max-w-5xl px-4 text-center text-white sm:px-6 lg:px-8">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-gold">
-              Mars Travel private yacht
+              {BRAND_NAME} · {t('yachts.eyebrow')}
             </p>
             <h1 className="font-display text-[clamp(2.25rem,6vw,4.5rem)] font-bold leading-[1.05]">
               {t('yachtSelection.title')}
@@ -75,7 +76,7 @@ const YachtSelection = () => {
                     navigate(`/yachts/${id}`);
                   }
                 }}
-                className={`group min-h-[238px] cursor-pointer rounded-2xl border-2 border-transparent bg-white p-5 shadow-[0_6px_24px_rgba(11,31,63,0.07)] transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-1 focus:outline focus:outline-4 focus:outline-offset-4 focus:outline-gold md:min-h-[230px] md:p-6 ${hover}`}
+                className={`group min-h-[238px] cursor-pointer rounded-2xl border-2 border-transparent bg-surface p-5 shadow-[0_6px_24px_rgba(11,31,63,0.07)] transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-1 focus:outline focus:outline-4 focus:outline-offset-4 focus:outline-gold md:min-h-[230px] md:p-6 ${hover}`}
               >
                 <div className="flex h-full flex-col justify-between">
                   <div>
@@ -86,7 +87,7 @@ const YachtSelection = () => {
                     </div>
 
                     <p className="mb-2 text-base font-semibold text-secondary">{time}</p>
-                    <h2 className="font-display text-[26px] font-bold leading-tight text-navy md:text-[30px]">
+                    <h2 className="font-display text-[26px] font-bold leading-tight text-heading md:text-[30px]">
                       {title}
                     </h2>
                     <p className="mt-3 max-w-md text-sm font-light leading-relaxed text-secondary md:text-base">

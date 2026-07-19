@@ -139,6 +139,7 @@ export const POLICIES = {
           heading: 'Reservations & Payments',
           paragraphs: [
             `No payment is collected through this website. All reservations are concluded directly with ${AGENCY_NAME}, and the written booking confirmation you receive constitutes the binding description of the purchased service.`,
+            'Payment is generally made during the experience in cash, or by online transfer. Experiences involving a flight are paid for in advance, since the air ticket is purchased at the time of booking; chartering a private yacht requires a prepayment for the yacht.',
           ],
         },
         {
@@ -188,6 +189,7 @@ export const POLICIES = {
           heading: 'Бронирование и оплата',
           paragraphs: [
             `Оплата через этот сайт не принимается. Все бронирования оформляются напрямую с агентством ${AGENCY_NAME}; письменное подтверждение бронирования является обязательным описанием приобретённой услуги.`,
+            'Как правило, оплата производится во время экскурсии наличными либо онлайн переводом. Перелётные экскурсии оплачиваются заранее, так как авиабилет выкупается при бронировании; при аренде индивидуальной яхты вносится предоплата за яхту.',
           ],
         },
         {
@@ -239,7 +241,8 @@ export const POLICIES = {
         {
           heading: 'Changes Requested by the Guest',
           paragraphs: [
-            'If you need to change the date, time, or participant count, contact us through WhatsApp as early as possible. Rescheduling is offered subject to availability and the conditions stated in your booking confirmation.',
+            'For experiences that do not include a flight ticket, the date can be changed no later than 24 hours before departure. To change the experience or the date, contact us via WhatsApp, Viber or Telegram. Rescheduling is offered subject to availability and the conditions stated in your booking confirmation.',
+            'For experiences that include a flight ticket, the date cannot be changed, because the air tickets have been purchased.',
           ],
         },
         {
@@ -288,7 +291,8 @@ export const POLICIES = {
         {
           heading: 'Изменения по инициативе гостя',
           paragraphs: [
-            'Если вам нужно изменить дату, время или количество участников, свяжитесь с нами через WhatsApp как можно раньше. Перенос возможен при наличии мест и в соответствии с условиями вашего подтверждения бронирования.',
+            'Если программа не включает в себя авиабилет, дату можно поменять не позднее, чем за сутки до выезда. Чтобы поменять программу или дату, свяжитесь с нами по WhatsApp, Viber или Telegram. Перенос возможен при наличии мест и в соответствии с условиями вашего подтверждения бронирования.',
+            'Если программа включает в себя авиабилет, дату поменять нельзя в связи с покупкой авиабилетов.',
           ],
         },
         {
