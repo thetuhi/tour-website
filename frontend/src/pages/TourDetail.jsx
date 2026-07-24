@@ -14,9 +14,11 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { generateWhatsAppLink } from '../utils/whatsapp';
 import { recordLead } from '../utils/leads';
 import { getTourById } from '../data/tours';
+import { resolveFaq } from '../content/faq';
 import { BRAND_NAME } from '../config/agency';
 import RevealImage from '../components/RevealImage';
 import ImageLightbox from '../components/ImageLightbox';
+import FaqAccordion from '../components/FaqAccordion';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -56,6 +58,7 @@ const TourDetail = () => {
   const handleRequestClick = () =>
     recordLead({ tourId: tour.id, tourTitle: tour.titleEn, language: i18n.language, source: 'tour-detail', timeSlot: slot });
   const images = tour.imageUrls?.length ? tour.imageUrls : [fallbackImage];
+  const faqItems = resolveFaq(tour.faq, i18n.language);
   const backTarget = slot ? `/yachts/${slot}` : '/';
   const slotTime = slot === 'day'
     ? t('yachtSelection.dayTour.time')
@@ -266,6 +269,26 @@ const TourDetail = () => {
           </div>
         </aside>
       </section>
+
+      {faqItems.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8 lg:pt-16">
+          <div className="mb-8 text-center">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold">
+              {t('tourDetail.faqEyebrow')}
+            </p>
+            <h2 className="font-display text-3xl font-bold leading-tight text-heading md:text-4xl">
+              {t('tourDetail.faqTitle')}
+            </h2>
+          </div>
+
+          <FaqAccordion
+            items={faqItems}
+            defaultOpenId={faqItems[0]?.id ?? null}
+            twoColumn
+            className="overflow-hidden rounded-2xl bg-surface shadow-[0_4px_24px_rgba(11,31,63,0.06)]"
+          />
+        </section>
+      )}
 
       {lightboxIndex !== null && (
         <ImageLightbox

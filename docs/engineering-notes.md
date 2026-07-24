@@ -1,5 +1,22 @@
 # Aura Tours Mühendislik Notları
 
+> **⚠️ BU BELGE GÜNCEL DEĞİL — 2026-07-19 itibarıyla mimari değişti.**
+>
+> Aşağıdaki notlar projenin Spring Boot + PostgreSQL backend'li dönemini
+> anlatır. O katman **tamamen kaldırıldı**; proje artık frontend-only:
+>
+> - Tur kataloğu `frontend/src/data/tours.js` içinde statik veri olarak durur
+>   (eski `DataInitializer` + `Tour` entity'sinin yerini alır).
+> - Lead kaydı Postgres yerine GA4 `whatsapp_contact` event'i olarak gider
+>   (`frontend/src/utils/analytics.js`).
+> - `TourController` / `TourService` / `TourResponse` yerine
+>   `getToursByCategory()` ve `getTourById()` yardımcıları kullanılır.
+> - Marka "Aura Tours" değil **MARS TRAVEL**'dır (2026-07-12 rebrand).
+>
+> Belgenin backend, PostgreSQL, JPA ve konteynerizasyon bölümleri artık
+> yalnızca tarihsel kayıttır. Frontend, görsel yönetimi ve WhatsApp akışı
+> bölümleri hâlâ büyük ölçüde geçerlidir.
+
 Son güncelleme: 2026-05-08
 
 Bu notlar, Aura Tours projesinin yerel bir tur çalışmasından uluslararası ölçekli bir turizm portalına dönüşümünde alınan teknik ve tasarımsal kararları özetler. Kapsam; dil stratejisi, PostgreSQL tabanlı veri modeli, Spring Boot backend mimarisi, React frontend akışı, yat rezervasyon hunisi, WhatsApp entegrasyonu, görsel yönetimi ve ilerideki konteynerizasyon yolunu içerir.

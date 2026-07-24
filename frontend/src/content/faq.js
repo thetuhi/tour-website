@@ -108,8 +108,19 @@ export const FAQ_ITEMS = [
   },
 ];
 
-/** Resolves the FAQ for a language, falling back to English for anything else. */
-export const getFaq = (lang) => {
+/**
+ * Flattens bilingual FAQ items to a single language, falling back to English
+ * for anything that is not Russian. Shared by the global FAQ page and the
+ * per-tour FAQ blocks (see `faq` on a tour in `data/tours.js`) so the language
+ * fallback logic lives in exactly one place.
+ */
+export const resolveFaq = (items, lang) => {
   const key = lang?.startsWith('ru') ? 'ru' : 'en';
-  return FAQ_ITEMS.map(item => ({ id: item.id, ...item[key] }));
+  // Russian is the source of truth, so an item may carry only `ru`; fall back to
+  // it (then `en`) when the requested language is missing, rather than resolving
+  // to an empty row the accordion would choke on.
+  return (items ?? []).map(item => ({ id: item.id, ...(item[key] ?? item.ru ?? item.en) }));
 };
+
+/** Resolves the global FAQ for a language. */
+export const getFaq = (lang) => resolveFaq(FAQ_ITEMS, lang);

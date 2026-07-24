@@ -1,11 +1,18 @@
-# Maven build output
-backend/target/
+# Dependencies & build output
+node_modules/
+frontend/dist/
+
+# Dev server logs
+*.log
 
 # IDE files
-backend/.idea/
 .idea/
 *.iml
+.vscode/
 
 # Environment files
 .env
 .env.local
+
+# Full-resolution image masters (optimized WebP copies live in public/images)
+frontend/originals/

@@ -19,9 +19,10 @@ const CONTACT_PHONE_DISPLAY = '+90 534 319 48 15';
 /**
  * Premium navy site footer: brand + relationship statement, explore and
  * policy navigation, and the official agency block (MARŞ TRAVEL, licence
- * number, contact). The agency identity repeats in the bottom bar so it is
- * visible even where the columns collapse. `withCtaClearance` reserves space
- * for the fixed WhatsApp bar shown on detail pages below the lg breakpoint.
+ * number, contact). The legal agency identity appears only in that official
+ * block; the bottom bar carries the copyright and a brand tagline rather than
+ * repeating it. `withCtaClearance` reserves space for the fixed WhatsApp bar
+ * shown on detail pages below the lg breakpoint.
  */
 const Footer = ({ withCtaClearance = false }) => {
   const { t, i18n } = useTranslation();
@@ -179,12 +180,12 @@ const Footer = ({ withCtaClearance = false }) => {
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom bar — the legal agency identity (name + licence number) is not
+            repeated here; it lives solely in the Official Agency card above. The
+            right slot carries a brand tagline instead. */}
         <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-6 text-center text-xs text-white/50 sm:flex-row sm:text-left">
           <p>{t('footer.rights', { year: new Date().getFullYear(), brand: BRAND_NAME })}</p>
-          <p>
-            {AGENCY_NAME} · {t('footer.licenseShort', { number: AGENCY_LICENSE_NUMBER })}
-          </p>
+          <p>{t('footer.tagline')}</p>
         </div>
       </div>
     </footer>
