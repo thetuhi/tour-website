@@ -1,9 +1,9 @@
 /**
- * Official agency identity — single source of truth.
+ * Official agency identity, single source of truth.
  *
  * The public brand (site, wordmark) is ANTALYA JOURNEY; the licensed operating
  * agency behind it is MARŞ TRAVEL, and the TÜRSAB licence belongs to that legal
- * entity — renaming the brand never changes the two constants below it.
+ * entity, renaming the brand never changes the two constants below it.
  * Reference these constants wherever the identity appears instead of
  * hardcoding the values.
  */
@@ -12,12 +12,10 @@ export const AGENCY_NAME = 'MARŞ TRAVEL';
 export const AGENCY_LICENSE_NUMBER = '8926';
 
 /**
- * Public social profiles. Add an entry here and it appears in the footer —
+ * Public social profiles. Add an entry here and it appears in the footer,
  * `handle` is what visitors see, `url` is where they go.
  */
-export const SOCIAL_LINKS = [
-  { id: 'tiktok', label: 'TikTok', handle: '@antalyajourney', url: 'https://www.tiktok.com/@antalyajourney' },
-];
+export const SOCIAL_LINKS = [];
 
 /**
  * Physical office, used by the footer map.
@@ -31,7 +29,7 @@ export const SOCIAL_LINKS = [
  */
 export const OFFICE = {
   label: 'MARŞ TRAVEL',
-  address: 'Kiriş Cd. No:57, Kiriş — Kemer / Antalya',
+  address: 'Kiriş Cd. No:57, Kiriş, Kemer / Antalya',
   shortAddress: 'Kemer, Antalya',
   mapsQuery: '36.5767256,30.5808517',
   /** Name-based link for the "get directions" button, which has no such parsing limits. */

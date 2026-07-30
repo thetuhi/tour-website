@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import { getFaq } from '../content/faq';
-import { generateWhatsAppLink } from '../utils/whatsapp';
+import { generateWhatsAppLink, generateTelegramLink } from '../utils/whatsapp';
 import { recordLead } from '../utils/leads';
-import { AGENCY_NAME, AGENCY_LICENSE_NUMBER } from '../config/agency';
 import Reveal from '../components/Reveal';
 import FaqAccordion from '../components/FaqAccordion';
 
@@ -14,9 +13,10 @@ const FAQ = () => {
   const items = getFaq(i18n.language);
 
   const whatsappUrl = generateWhatsAppLink(i18n.language);
+  const telegramUrl = generateTelegramLink();
 
   /* FAQPage structured data. Rendered from the same source as the visible
-     answers so the two can never drift apart — Google penalises schema that
+     answers so the two can never drift apart, Google penalises schema that
      does not match on-page content. */
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -35,7 +35,6 @@ const FAQ = () => {
     <div className="min-h-screen bg-mist pb-20 text-ink">
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
@@ -79,22 +78,30 @@ const FAQ = () => {
             <p className="mx-auto mt-3 max-w-lg text-sm font-light leading-relaxed text-white/70 md:text-base">
               {t('faq.ctaDesc')}
             </p>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => recordLead({ language: i18n.language, source: 'faq' })}
-              className="mt-7 inline-flex min-h-14 items-center justify-center gap-2 bg-gold px-8 text-xs font-bold uppercase tracking-[0.15em] text-navy transition-colors duration-300 hover:bg-white"
-            >
-              <FaWhatsapp size={18} />
-              {t('about.cta')}
-            </a>
+            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => recordLead({ language: i18n.language, source: 'faq' })}
+                className="inline-flex min-h-14 w-full items-center justify-center gap-2 bg-gold px-6 text-xs font-bold uppercase tracking-[0.15em] text-navy transition-colors duration-300 hover:bg-white sm:w-60"
+              >
+                <FaWhatsapp size={18} />
+                {t('about.cta')}
+              </a>
+              <a
+                href={telegramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => recordLead({ language: i18n.language, source: 'faq-telegram' })}
+                className="inline-flex min-h-14 w-full items-center justify-center gap-2 bg-primary px-6 text-xs font-bold uppercase tracking-[0.15em] text-navy transition-colors duration-300 hover:bg-white sm:w-60"
+              >
+                <FaTelegramPlane size={18} />
+                {t('contact.telegram')}
+              </a>
+            </div>
           </div>
         </Reveal>
-
-        <div className="mt-8 text-center text-xs text-secondary">
-          {AGENCY_NAME} · {t('footer.licenseShort', { number: AGENCY_LICENSE_NUMBER })}
-        </div>
       </section>
     </div>
   );

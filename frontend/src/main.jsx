@@ -6,13 +6,17 @@ import './i18n/index.js';   // ← initialise i18next BEFORE rendering
 import './index.css';
 import App from './App.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
-import { initAnalytics } from './utils/analytics.js';
+import { splashLiftIn } from './motion/splash.js';
+import { applyStoredConsent } from './utils/measure.js';
 
-initAnalytics();
+// Consent-gated: GA starts only if the visitor already accepted on a past
+// visit, and a stored refusal is re-asserted. A fresh visitor has no stored
+// choice and sees the dialog first (components/PrivacyChoice.jsx).
+applyStoredConsent();
 
 /* LazyMotion + domAnimation loads only the DOM animation features (~60% of
    the full framer-motion bundle). It is why components import `m` instead of
-   `motion` — `motion.*` would pull the whole feature set back in. */
+   `motion`, `motion.*` would pull the whole feature set back in. */
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
@@ -29,14 +33,6 @@ createRoot(document.getElementById('root')).render(
    The splash paints before the JS bundle loads; once the app has
    mounted we hold it long enough for the brand sequence to compose
    (fast loads shouldn't produce a jarring flash), then lift the
-   curtain and remove it from the DOM. */
-const MIN_SPLASH_MS = 1600;
-const CURTAIN_MS = 850;
-const splash = document.getElementById('splash');
-if (splash) {
-  const remaining = Math.max(0, MIN_SPLASH_MS - performance.now());
-  window.setTimeout(() => {
-    splash.classList.add('splash--hide');
-    window.setTimeout(() => splash.remove(), CURTAIN_MS);
-  }, remaining);
-}
+   curtain. `__liftSplash` owns the DOM side, it is also what the
+   failsafe timer in index.html calls if this bundle never runs. */
+window.setTimeout(() => window.__liftSplash?.(), splashLiftIn());

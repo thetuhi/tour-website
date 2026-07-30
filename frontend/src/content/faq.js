@@ -1,5 +1,5 @@
 /**
- * Frequently asked questions — EN + RU only, matching the site's language set.
+ * Frequently asked questions, EN + RU only, matching the site's language set.
  *
  * The Russian text is the source of truth, supplied by the agency; the English
  * is a faithful translation of it, not a rewrite. Answers are arrays of
@@ -16,7 +16,7 @@ export const FAQ_ITEMS = [
     en: {
       question: 'How is the excursion paid for?',
       answer: [
-        'You can pay during the excursion in cash — preferably in US dollars, euros or Turkish lira.',
+        'You can pay during the excursion in cash, preferably in US dollars, euros or Turkish lira.',
         'Payment by online transfer in rubles and hryvnia is also possible.',
         '(Please note: excursions involving a flight are paid for immediately, as the plane ticket is purchased; likewise, when chartering a private yacht, a prepayment for the yacht is made.)',
       ],
@@ -36,7 +36,7 @@ export const FAQ_ITEMS = [
       question: 'Why are our prices so different from those of tour operators?',
       answer: [
         'The point is that foreign tour operators (including Russian ones) do not have the legal right to organise excursions on the territory of Turkey, and are obliged to use the services of a local receiving party.',
-        'Thus, the final product in the form of an excursion reaches tourists after passing through the chain «organising agency — tour operator’s head office — tour operator’s local office — hotel guide», and, naturally, the profit of each link in this chain is built into the price of the excursion.',
+        'Thus, the final product in the form of an excursion reaches tourists after passing through the chain «organising agency, tour operator’s head office, tour operator’s local office, hotel guide», and, naturally, the profit of each link in this chain is built into the price of the excursion.',
         'That is why the price of an excursion from a tour operator is approximately twice as high as the cost of an excursion bought directly from us, the agency that organises excursions in Antalya.',
       ],
     },
@@ -44,7 +44,7 @@ export const FAQ_ITEMS = [
       question: 'Почему наши цены так отличаются от цен туроператоров?',
       answer: [
         'Дело в том, что иностранные туроператоры (в том числе российские) не имеют юридического права организовывать экскурсии на территории Турции, и вынуждены пользоваться услугами принимающей стороны.',
-        'Таким образом, конечный продукт в виде экскурсии попадает к туристам пройдя цепочку «организующее агентство — головной офис туроператора — местный офис туроператора — отельный гид», и, естественно, выгода каждого из звеньев этой цепочки заложена в цену экскурсии.',
+        'Таким образом, конечный продукт в виде экскурсии попадает к туристам пройдя цепочку «организующее агентство, головной офис туроператора, местный офис туроператора, отельный гид», и, естественно, выгода каждого из звеньев этой цепочки заложена в цену экскурсии.',
         'Поэтому цена экскурсии от туроператора примерно в 2 раза выше стоимости экскурсии, купленной напрямую у нас, агентства, организующего экскурсии в Анталии.',
       ],
     },

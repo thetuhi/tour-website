@@ -45,13 +45,18 @@ const ImageLightbox = ({ images, initialIndex = 0, onClose }) => {
     setIndex(prev => (prev + delta + count) % count);
   }, [count]);
 
-  // Card images share the same file, so the image is usually already cached.
-  useEffect(() => {
-    const img = imgRef.current;
-    if (img && img.complete) {
-      setImgStatus(img.naturalWidth > 0 ? 'ready' : 'error');
+  /* Ref callback rather than an effect: it runs synchronously at commit, so a
+     cached image (the gallery just displayed it) is detected even when the
+     browser fires `load` before React attaches the onLoad handler, the case
+     that otherwise left the photo stuck invisible behind `opacity-0`, showing
+     only the lightbox chrome. React remounts the <img> on navigation (keyed by
+     src), so this re-runs for every slide. */
+  const registerImg = useCallback((node) => {
+    imgRef.current = node;
+    if (node && node.complete) {
+      setImgStatus(node.naturalWidth > 0 ? 'ready' : 'error');
     }
-  }, [index]);
+  }, []);
 
   // Warm the neighbouring slides so swiping never waits on the network.
   useEffect(() => {
@@ -183,7 +188,7 @@ const ImageLightbox = ({ images, initialIndex = 0, onClose }) => {
       ) : (
         <img
           key={current.src}
-          ref={imgRef}
+          ref={registerImg}
           src={current.src}
           alt={current.alt}
           onLoad={() => setImgStatus('ready')}

@@ -11,9 +11,9 @@ export default {
         /* ── ANTALYA JOURNEY premium palette ──
            Fixed brand colors keep the same value in both themes;
            the var-backed tokens flip with the `.dark` root class. */
-        navy: '#0B1F3F',            // deep Mediterranean navy — dark sections, on-gold text
-        gold: '#D4AF37',            // refined gold — luxury accents
-        primary: '#00B4D8',         // turquoise — interactive accents
+        navy: '#0B1F3F',            // deep Mediterranean navy: dark sections, on-gold text
+        gold: '#D4AF37',            // refined gold: luxury accents
+        primary: '#00B4D8',         // turquoise: interactive accents
         heading: 'var(--heading)',  // headings on themed surfaces
         ink: 'var(--ink)',          // body text on themed surfaces
         secondary: 'var(--text-secondary)',

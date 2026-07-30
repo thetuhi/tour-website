@@ -25,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
     try {
       window.localStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch {
-      /* private mode — the theme still applies for this session */
+      /* private mode, the theme still applies for this session */
     }
   }, [theme]);
 
@@ -42,6 +42,7 @@ export const ThemeProvider = ({ children }) => {
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) throw new Error('useTheme must be used within a ThemeProvider');

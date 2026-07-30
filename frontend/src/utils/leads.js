@@ -1,4 +1,4 @@
-import { trackEvent } from './analytics';
+import { trackEvent } from './measure';
 
 /**
  * Lead capture when a visitor starts the WhatsApp flow.

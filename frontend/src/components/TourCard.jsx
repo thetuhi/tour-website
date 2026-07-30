@@ -100,7 +100,7 @@ const TourCard = ({ tour, large = false, slot = null }) => {
           </div>
         </div>
 
-        {/* Cursor-tracking sheen — decorative, above content but never clickable */}
+        {/* Cursor-tracking sheen, decorative, above content but never clickable */}
         {!reduceMotion && (
           <m.span
             aria-hidden="true"

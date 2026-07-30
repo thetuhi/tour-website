@@ -1,8 +1,8 @@
 import { Anchor, Languages, ShieldCheck } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import RevealImage from '../components/RevealImage';
-import { generateWhatsAppLink } from '../utils/whatsapp';
+import { generateWhatsAppLink, generateTelegramLink } from '../utils/whatsapp';
 import { recordLead } from '../utils/leads';
 import { BRAND_NAME, AGENCY_NAME, AGENCY_LICENSE_NUMBER } from '../config/agency';
 
@@ -14,6 +14,7 @@ import { BRAND_NAME, AGENCY_NAME, AGENCY_LICENSE_NUMBER } from '../config/agency
 const About = () => {
   const { t, i18n } = useTranslation();
   const whatsappUrl = generateWhatsAppLink(i18n.language);
+  const telegramUrl = generateTelegramLink();
 
   const values = [
     { icon: Anchor, title: t('about.values.curated.title'), desc: t('about.values.curated.desc') },
@@ -105,16 +106,28 @@ const About = () => {
           <p className="mx-auto mt-4 max-w-xl text-base font-light leading-relaxed text-white/70">
             {t('about.ctaDesc')}
           </p>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => recordLead({ language: i18n.language, source: 'about' })}
-            className="mt-8 inline-flex min-h-14 items-center justify-center gap-2 bg-gold px-8 text-xs font-bold uppercase tracking-[0.15em] text-navy transition-colors duration-300 hover:bg-white"
-          >
-            <FaWhatsapp size={18} />
-            {t('about.cta')}
-          </a>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => recordLead({ language: i18n.language, source: 'about' })}
+              className="inline-flex min-h-14 w-full items-center justify-center gap-2 bg-gold px-6 text-xs font-bold uppercase tracking-[0.15em] text-navy transition-colors duration-300 hover:bg-white sm:w-60"
+            >
+              <FaWhatsapp size={18} />
+              {t('about.cta')}
+            </a>
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => recordLead({ language: i18n.language, source: 'about-telegram' })}
+              className="inline-flex min-h-14 w-full items-center justify-center gap-2 bg-primary px-6 text-xs font-bold uppercase tracking-[0.15em] text-navy transition-colors duration-300 hover:bg-white sm:w-60"
+            >
+              <FaTelegramPlane size={18} />
+              {t('contact.telegram')}
+            </a>
+          </div>
         </div>
       </section>
     </div>

@@ -10,8 +10,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
     />
-    <link rel="preload" as="image" href="/images/antalya-kapak.webp" fetchpriority="high" />
-    <meta name="description" content="ANTALYA JOURNEY — Private yacht escapes, signature experiences, and curated journeys in Antalya, Turkey. Premium travel experiences in English and Russian." />
+    <meta name="description" content="ANTALYA JOURNEY: Private yacht escapes, signature experiences, and curated journeys in Antalya, Turkey. Premium travel experiences in English and Russian." />
     <meta name="keywords" content="Antalya experiences, private yacht, Turkey journeys, Pamukkale, Cappadocia, travel" />
     <title>ANTALYA JOURNEY</title>
     <script>
@@ -29,14 +28,18 @@
     </script>
     <style>
       /* ── ANTALYA JOURNEY boot splash ─────────────────────────
-         Inline so it paints as soon as the HTML arrives — before
+         Inline so it paints as soon as the HTML arrives, before
          the JS bundle or any stylesheet loads. Dismissed from
          main.jsx once the app has mounted.
 
          Sequence: gold line draws → wordmark resolves out of a
          soft blur with expanding letter-spacing → eyebrow drifts
          in → line keeps a quiet breathing pulse. Exit: a curtain
-         lift revealing the page underneath. */
+         lift revealing the page underneath.
+
+         The composition lands at 1.4s. SPLASH_HOLD_MS in
+         src/motion/splash.js holds the curtain until then, so
+         these delays and that constant must move together. */
       #splash {
         position: fixed;
         inset: 0;
@@ -67,7 +70,7 @@
         width: 54px;
         height: 54px;
         color: #00B4D8;
-        animation: splash-mark-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation: splash-mark-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
       }
       .splash-line {
         order: 1;
@@ -76,8 +79,8 @@
         background: #ffffff;
         transform-origin: center;
         animation:
-          splash-line-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both,
-          splash-line-breathe 1.8s ease-in-out 1.5s infinite;
+          splash-line-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both,
+          splash-line-breathe 1.8s ease-in-out 1.4s infinite;
       }
       @keyframes splash-mark-in {
         from { opacity: 0; transform: translateY(14px) scale(0.86); }
@@ -90,7 +93,7 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: #ffffff;
-        animation: splash-title-in 1s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+        animation: splash-title-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
       }
       .splash-eyebrow {
         order: 3;
@@ -99,7 +102,7 @@
         letter-spacing: 0.35em;
         text-transform: uppercase;
         color: #D4AF37;
-        animation: splash-fade-up 0.8s ease 0.95s both;
+        animation: splash-fade-up 0.6s ease 0.8s both;
       }
       @keyframes splash-line-in {
         from { transform: scaleX(0); }
@@ -142,6 +145,35 @@
         <p class="splash-eyebrow">ANTALYA &middot; T&Uuml;RK&#304;YE</p>
       </div>
     </div>
+    <script>
+      /* Boot splash plumbing. Two things the bundle cannot do on its own:
+
+         1. Stamp the frame the splash first paints. Its keyframes start from
+            that paint, not from navigation start, and the two are far apart
+            whenever the render-blocking font stylesheet is slow. src/motion/
+            splash.js measures the hold from this stamp so the sequence is
+            never cut off half way.
+         2. Lift the curtain even if the bundle never runs. A failed chunk or
+            a syntax error used to leave a visitor staring at the splash for
+            good, with the whole site behind it. */
+      (function () {
+        var splash = document.getElementById('splash');
+        if (!splash) return;
+
+        requestAnimationFrame(function (paintedAt) {
+          window.__splashPaintedAt = paintedAt;
+        });
+
+        window.__liftSplash = function () {
+          if (!splash.isConnected || splash.classList.contains('splash--hide')) return;
+          splash.classList.add('splash--hide');
+          // Matches the #splash transform transition (0.8s) plus a frame.
+          window.setTimeout(function () { splash.remove(); }, 900);
+        };
+
+        window.setTimeout(window.__liftSplash, 8000);
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

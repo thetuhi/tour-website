@@ -13,13 +13,13 @@
   "hero": {
     "location": "Antalya, TÜRKİYE",
     "title": "Discover Your Next Adventure",
-    "subtitle": "Private yacht escapes, cultural wonders, and adrenaline-fueled journeys — curated by {{brand}}.",
+    "subtitle": "Private yacht escapes, cultural wonders, and adrenaline-fueled journeys, curated by {{brand}}.",
     "cta": "Discover Experiences"
   },
   "yachts": {
     "eyebrow": "Signature Experience",
     "title": "Private Yacht Escapes",
-    "subtitle": "Glide across the turquoise waters of the Turkish Riviera aboard a private yacht — the pinnacle of luxury.",
+    "subtitle": "Glide across the turquoise waters of the Turkish Riviera aboard a private yacht, the pinnacle of luxury.",
     "tags": {
       "crew": "Private Crew",
       "dining": "Fine Dining Included",
@@ -46,13 +46,13 @@
   "inCity": {
     "eyebrow": "In the City",
     "title": "Discover Antalya",
-    "subtitle": "Diving, canyons, aquariums, and more — unforgettable experiences without leaving the city.",
+    "subtitle": "Diving, canyons, aquariums, and more, unforgettable experiences without leaving the city.",
     "empty": "No experiences available at the moment."
   },
   "outOfCity": {
     "eyebrow": "Grand Journeys",
     "title": "Beyond Antalya",
-    "subtitle": "Pamukkale, Cappadocia, and beyond — journeys to Turkey's most awe-inspiring destinations.",
+    "subtitle": "Pamukkale, Cappadocia, and beyond, journeys to Turkey's most awe-inspiring destinations.",
     "empty": "No journeys available at the moment."
   },
   "tourDetail": {
@@ -60,7 +60,7 @@
     "back": "Back to Experiences",
     "included": "What's Included",
     "interested": "Interested?",
-    "contactDesc": "Speak directly with your {{brand}} representative on WhatsApp to plan the details of your experience.",
+    "contactDesc": "Speak directly with your {{brand}} representative on WhatsApp or Telegram to plan the details of your experience.",
     "whatsapp": "Request This Experience",
     "scan": "Scan to request",
     "faqEyebrow": "Good to Know",
@@ -85,8 +85,6 @@
   "footer": {
     "rights": "© {{year}} {{brand}}. All rights reserved.",
     "license": "Travel Agency Operating License No: {{number}}",
-    "licenseShort": "Operating License No: {{number}}",
-    "tagline": "Licensed by TÜRSAB • A Group Travel Agency",
     "operates": "Operates {{brand}}. All reservations, sales and payments are concluded with this agency.",
     "follow": "Follow Us",
     "showMap": "Show map",
@@ -117,7 +115,7 @@
       },
       "personal": {
         "title": "Personal Planning",
-        "desc": "No forms, no call centers. You speak directly with a representative on WhatsApp who tailors the day to you."
+        "desc": "No forms, no call centers. You speak directly with a representative on WhatsApp or Telegram who tailors the day to you."
       },
       "bilingual": {
         "title": "English & Russian",
@@ -132,9 +130,9 @@
     "nav": "FAQ",
     "eyebrow": "Good to Know",
     "title": "Frequently Asked Questions",
-    "subtitle": "Payment, insurance, changing your date and where to meet the bus — the questions guests ask us most often.",
+    "subtitle": "Payment, insurance, changing your date and where to meet the bus, the questions guests ask us most often.",
     "ctaTitle": "Still have a question?",
-    "ctaDesc": "Write to us on WhatsApp and a representative will answer you directly.",
+    "ctaDesc": "Write to us on WhatsApp or Telegram and a representative will answer you directly.",
     "empty": "No questions available at the moment."
   },
   "policy": {
@@ -143,5 +141,23 @@
     "back": "Back to Home",
     "also": "Related policies",
     "notFound": "Page Not Found"
+  },
+  "contact": {
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram"
+  },
+  "cookie": {
+    "title": "Cookie notice",
+    "text": "We use analytics cookies to understand how the site is used. They load only if you accept.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "policy": "Privacy Policy",
+    "settings": "Cookie settings"
+  },
+  "error": {
+    "title": "This page could not load",
+    "text": "The connection dropped while the page was loading. Reloading usually fixes it.",
+    "retry": "Reload the page",
+    "home": "Back to home"
   }
 }

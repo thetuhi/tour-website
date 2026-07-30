@@ -7,11 +7,11 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { generateWhatsAppLink } from '../utils/whatsapp';
+import { generateWhatsAppLink, generateTelegramLink } from '../utils/whatsapp';
 import { recordLead } from '../utils/leads';
 import { getTourById } from '../data/tours';
 import { resolveFaq } from '../content/faq';
@@ -53,10 +53,14 @@ const TourDetail = () => {
   // text makes the URL ~4x longer, which turns the QR into an unscannably
   // dense pattern at this size.
   const qrWhatsappUrl = generateWhatsAppLink('en', tour.titleEn, slot, tour.contactPhone);
+  const telegramUrl = generateTelegramLink(tour.contactPhone);
   const displayLocation = isRu ? (tour.locationRu || tour.locationEn) : tour.locationEn;
   const displayDuration = isRu ? (tour.durationRu || tour.durationEn) : tour.durationEn;
+  const includedItems = (isRu ? tour.includedItemsRu : null) || tour.includedItemsEn || [];
   const handleRequestClick = () =>
     recordLead({ tourId: tour.id, tourTitle: tour.titleEn, language: i18n.language, source: 'tour-detail', timeSlot: slot });
+  const handleTelegramClick = () =>
+    recordLead({ tourId: tour.id, tourTitle: tour.titleEn, language: i18n.language, source: 'tour-detail-telegram', timeSlot: slot });
   const images = tour.imageUrls?.length ? tour.imageUrls : [fallbackImage];
   const faqItems = resolveFaq(tour.faq, i18n.language);
   const backTarget = slot ? `/yachts/${slot}` : '/';
@@ -129,7 +133,7 @@ const TourDetail = () => {
       </section>
 
       <section className="mx-auto grid max-w-7xl gap-8 px-4 pt-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:px-8">
-        <div className="space-y-8">
+        <div className="min-w-0 space-y-8">
           <div className="overflow-hidden rounded-2xl bg-navy shadow-[0_12px_48px_rgba(11,31,63,0.12)]">
             {images.length === 1 ? (
               <button
@@ -214,7 +218,7 @@ const TourDetail = () => {
             </div>
 
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {tour.includedItems?.map((item, index) => (
+              {includedItems.map((item, index) => (
                 <li
                   key={`${item}-${index}`}
                   className="flex items-center border border-line bg-mist px-4 py-3 text-sm font-medium text-ink"
@@ -247,6 +251,17 @@ const TourDetail = () => {
               {t('tourDetail.whatsapp')}
             </a>
 
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleTelegramClick}
+              className="mt-3 flex min-h-14 w-full items-center justify-center gap-2 border border-primary px-6 text-xs font-bold uppercase tracking-[0.15em] text-primary transition-colors duration-300 hover:bg-primary hover:text-navy"
+            >
+              <FaTelegramPlane size={18} />
+              {t('contact.telegram')}
+            </a>
+
             <div className="mt-6 border-t border-line pt-6 text-center">
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-secondary">{t('tourDetail.scan')}</p>
               <div className="inline-block border border-line bg-white p-3">
@@ -256,16 +271,28 @@ const TourDetail = () => {
           </div>
 
           <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/20 bg-navy p-4 lg:hidden">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleRequestClick}
-              className="flex min-h-14 w-full items-center justify-center gap-2 bg-gold px-6 text-xs font-bold uppercase tracking-[0.15em] text-navy"
-            >
-              <FaWhatsapp size={18} />
-              {t('tourDetail.whatsapp')}
-            </a>
+            <div className="flex items-center gap-3">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleRequestClick}
+                className="flex min-h-14 flex-1 items-center justify-center gap-2 bg-gold px-6 text-xs font-bold uppercase tracking-[0.15em] text-navy"
+              >
+                <FaWhatsapp size={18} />
+                {t('tourDetail.whatsapp')}
+              </a>
+              <a
+                href={telegramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleTelegramClick}
+                aria-label={t('contact.telegram')}
+                className="flex min-h-14 w-14 shrink-0 items-center justify-center bg-primary text-navy"
+              >
+                <FaTelegramPlane size={20} />
+              </a>
+            </div>
           </div>
         </aside>
       </section>

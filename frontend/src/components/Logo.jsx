@@ -1,5 +1,5 @@
 /**
- * ANTALYA JOURNEY brand mark — a two-sail yacht over a waterline.
+ * ANTALYA JOURNEY brand mark, a two-sail yacht over a waterline.
  *
  * Single-colour vector driven by `currentColor`, so it inherits the surrounding
  * text colour and flips with the theme (navy on light, gold on dark) without a
@@ -19,7 +19,7 @@ export const LogoMark = ({ size = 26, className = '', ...rest }) => (
   >
     {/* Mainsail */}
     <path d="M21.5 38 V7 L7.5 38 Z" fill="currentColor" />
-    {/* Jib — lighter so the two sails read as separate planes */}
+    {/* Jib, lighter so the two sails read as separate planes */}
     <path d="M25.5 38 V16 L38.5 38 Z" fill="currentColor" opacity=".55" />
     {/* Waterline */}
     <path

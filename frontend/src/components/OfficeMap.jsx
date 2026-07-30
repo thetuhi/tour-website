@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { ExternalLink, MapPin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { OFFICE } from '../config/agency';
-import { trackEvent } from '../utils/analytics';
+import { trackEvent } from '../utils/measure';
 
 /**
  * Click-to-load Google Map.
  *
  * Nothing is requested from Google until the visitor asks for it: no map
  * tiles, no third-party cookies, no IP disclosure on page load. That matters
- * because this sits in the footer, which renders on every route — an eager
+ * because this sits in the footer, which renders on every route, an eager
  * iframe would cost ~0.5–1 MB per page view and pull the visitor's IP to
  * Google whether or not they care about the office location.
  *
@@ -55,10 +55,10 @@ const OfficeMap = () => {
               backgroundSize: '28px 28px',
             }}
           />
-          <MapPin size={26} className="text-gold transition-transform group-hover:scale-110" />
+          <MapPin size={26} className="text-primary transition-transform group-hover:scale-110" />
           <span className="text-sm font-semibold text-white">{OFFICE.label}</span>
           <span className="text-xs text-white/55">{OFFICE.address}</span>
-          <span className="mt-1 border border-white/25 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-white/85 transition-colors group-hover:border-gold group-hover:text-gold">
+          <span className="mt-1 border border-white/25 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-white/85 transition-colors group-hover:border-primary group-hover:text-primary">
             {t('footer.showMap')}
           </span>
         </button>

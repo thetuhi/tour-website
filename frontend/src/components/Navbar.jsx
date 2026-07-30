@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, Moon, Sun, X } from 'lucide-react';
+import { FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
 import LogoMark from './Logo';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { WHATSAPP_NUMBER } from '../utils/whatsapp';
+import { WHATSAPP_NUMBER, generateTelegramLink } from '../utils/whatsapp';
 import { recordLead } from '../utils/leads';
 import { useTheme } from '../context/ThemeContext';
 import { EASE, DURATION } from '../motion/presets';
 import { BRAND_NAME } from '../config/agency';
-import TursabBadge from './TursabBadge';
 
 const LANGS = [
   { code: 'ru', flag: '🇷🇺', label: 'RU' },
@@ -78,8 +78,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
-          {/* Logo + legal membership mark */}
-          <div className="flex min-w-0 items-center gap-3 xl:gap-4">
+          {/* Logo */}
+          <div className="flex min-w-0 items-center">
             <Link
               to="/"
               className="flex min-w-0 items-center gap-2 text-primary transition-opacity hover:opacity-80"
@@ -89,13 +89,6 @@ const Navbar = () => {
                 {BRAND_NAME}
               </span>
             </Link>
-
-            <span
-              className="hidden xl:block h-8 w-px shrink-0"
-              style={{ background: 'var(--border)' }}
-              aria-hidden="true"
-            />
-            <TursabBadge variant="compact" className="hidden xl:inline-flex shrink-0" />
           </div>
 
           {/* Right side controls */}
@@ -132,16 +125,32 @@ const Navbar = () => {
               >
                 {t('faq.nav')}
               </Link>
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => recordLead({ language: i18n.language, source: 'navbar' })}
-                className="text-sm font-medium transition-colors hover:text-primary"
-                style={{ color: 'var(--text-secondary)' }}
-              >
-                {t('nav.contact')}
-              </a>
+              <div className="flex items-center gap-4">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => recordLead({ language: i18n.language, source: 'navbar' })}
+                  aria-label={t('contact.whatsapp')}
+                  title={t('contact.whatsapp')}
+                  className="transition-colors hover:text-primary"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
+                  <FaWhatsapp size={20} />
+                </a>
+                <a
+                  href={generateTelegramLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => recordLead({ language: i18n.language, source: 'navbar-telegram' })}
+                  aria-label={t('contact.telegram')}
+                  title={t('contact.telegram')}
+                  className="transition-colors hover:text-primary"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
+                  <FaTelegramPlane size={20} />
+                </a>
+              </div>
             </div>
 
             {/* Language switcher (desktop) */}
@@ -234,10 +243,22 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => recordLead({ language: i18n.language, source: 'navbar-mobile' })}
-                  className="text-lg font-semibold px-4 py-2 rounded-xl transition-colors hover:bg-primary/10"
+                  className="flex items-center gap-2 text-lg font-semibold px-4 py-2 rounded-xl transition-colors hover:bg-primary/10"
                   style={{ color: 'var(--text)' }}
                 >
-                  {t('nav.contact')}
+                  <FaWhatsapp size={18} className="text-primary" />
+                  {t('contact.whatsapp')}
+                </a>
+                <a
+                  href={generateTelegramLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => recordLead({ language: i18n.language, source: 'navbar-mobile-telegram' })}
+                  className="flex items-center gap-2 text-lg font-semibold px-4 py-2 rounded-xl transition-colors hover:bg-primary/10"
+                  style={{ color: 'var(--text)' }}
+                >
+                  <FaTelegramPlane size={18} className="text-primary" />
+                  {t('contact.telegram')}
                 </a>
               </div>
 
@@ -262,11 +283,6 @@ const Navbar = () => {
                     </button>
                   ))}
                 </div>
-              </div>
-
-              {/* Legal membership mark */}
-              <div className="px-4 pt-2">
-                <TursabBadge variant="compact" />
               </div>
             </div>
           </m.div>

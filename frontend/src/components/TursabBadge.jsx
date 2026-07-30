@@ -1,7 +1,7 @@
 import { AGENCY_LICENSE_NUMBER } from '../config/agency';
 
 /**
- * TÜRSAB membership mark — a legal disclosure requirement for Turkish travel
+ * TÜRSAB membership mark, a legal disclosure requirement for Turkish travel
  * agencies, showing the agency's real operating licence number.
  *
  * Typographic placeholder: when the official TÜRSAB artwork is supplied, drop
@@ -19,7 +19,7 @@ const TursabBadge = ({ variant = 'compact', onDark = false, className = '' }) =>
   return (
     <div
       className={`inline-flex items-center gap-2 ${className}`}
-      aria-label={`TÜRSAB — ${AGENCY_LICENSE_NUMBER}`}
+      aria-label={`TÜRSAB, ${AGENCY_LICENSE_NUMBER}`}
     >
       <span
         className={`font-bold leading-none tracking-[0.08em] text-white ${

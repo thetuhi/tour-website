@@ -10,6 +10,10 @@ frontend/dist/
 *.iml
 .vscode/
 
+# Windows / OneDrive folder metadata
+desktop.ini
+Thumbs.db
+
 # Environment files
 .env
 .env.local

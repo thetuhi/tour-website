@@ -4,7 +4,7 @@ import { BRAND_NAME, AGENCY_NAME, AGENCY_LICENSE_NUMBER } from '../config/agency
  * Bilingual legal/policy content rendered by PolicyPage and linked from the
  * footer. Kept as structured data (not i18n JSON) because these are long
  * editorial documents, not UI strings. Booking-specific commercial terms are
- * deliberately not invented here — every policy defers to the written booking
+ * deliberately not invented here, every policy defers to the written booking
  * confirmation issued by the agency.
  */
 
@@ -30,7 +30,8 @@ export const POLICIES = {
           heading: 'Information We Collect',
           paragraphs: [
             'This website does not require an account and does not collect payment details. Your language preference is stored in your own browser so the site remembers it on your next visit.',
-            'When you start a WhatsApp enquiry, we record an anonymous interaction event — the experience viewed, the interface language, the selected time slot, and the page it originated from — so we can understand which programs receive interest. This event contains no name, phone number, or other personal identifier.',
+            'When you start a WhatsApp enquiry, we record an anonymous interaction event, the experience viewed, the interface language, the selected time slot, and the page it originated from, so we can understand which programs receive interest. This event contains no name, phone number, or other personal identifier.',
+            'Analytics cookies (Google Analytics) load only if you accept them in the cookie banner. If you decline, no analytics cookies are set and no usage events are sent. You can change your choice at any time via "Cookie settings" in the footer.',
           ],
         },
         {
@@ -68,7 +69,7 @@ export const POLICIES = {
     ru: {
       title: 'Политика конфиденциальности',
       updated: '13 июля 2026',
-      intro: `В этом документе описано, какая информация обрабатывается при использовании сайта ${BRAND_NAME} — онлайн-канала агентства ${AGENCY_NAME} (${LICENSE_RU}) — и что происходит, когда вы связываетесь с нами.`,
+      intro: `В этом документе описано, какая информация обрабатывается при использовании сайта ${BRAND_NAME}, онлайн-канала агентства ${AGENCY_NAME} (${LICENSE_RU}), и что происходит, когда вы связываетесь с нами.`,
       sections: [
         {
           heading: 'Кто мы',
@@ -80,13 +81,14 @@ export const POLICIES = {
           heading: 'Какие данные мы собираем',
           paragraphs: [
             'Сайт не требует создания аккаунта и не собирает платёжные данные. Выбранный язык сохраняется в вашем браузере, чтобы сайт запомнил его при следующем визите.',
-            'Когда вы начинаете обращение в WhatsApp, мы фиксируем анонимное событие взаимодействия — просмотренную программу, язык интерфейса, выбранное время и страницу перехода, — чтобы понимать, какие программы вызывают интерес. Это событие не содержит имени, номера телефона или иных персональных идентификаторов.',
+            'Когда вы начинаете обращение в WhatsApp, мы фиксируем анонимное событие взаимодействия, просмотренную программу, язык интерфейса, выбранное время и страницу перехода, чтобы понимать, какие программы вызывают интерес. Это событие не содержит имени, номера телефона или иных персональных идентификаторов.',
+            'Аналитические файлы cookie (Google Analytics) загружаются только если вы принимаете их в баннере cookie. Если вы отклоняете, аналитические файлы cookie не устанавливаются и события об использовании не отправляются. Вы можете изменить свой выбор в любой момент через «Настройки cookie» в футере.',
           ],
         },
         {
           heading: 'Связь через WhatsApp',
           paragraphs: [
-            'Кнопки связи на сайте открывают WhatsApp — сервис компании Meta Platforms, работающий по её собственным условиям и политике конфиденциальности. Информация, которой вы делитесь в переписке, используется нашей командой исключительно для ответа на запрос и подготовки бронирования.',
+            'Кнопки связи на сайте открывают WhatsApp, сервис компании Meta Platforms, работающий по её собственным условиям и политике конфиденциальности. Информация, которой вы делитесь в переписке, используется нашей командой исключительно для ответа на запрос и подготовки бронирования.',
           ],
         },
         {
@@ -151,7 +153,7 @@ export const POLICIES = {
         {
           heading: 'Intellectual Property',
           paragraphs: [
-            `All content on this website — texts, photographs, graphics, and the ${BRAND_NAME} identity — is protected and may not be reproduced or used commercially without prior written permission.`,
+            `All content on this website, texts, photographs, graphics, and the ${BRAND_NAME} identity, is protected and may not be reproduced or used commercially without prior written permission.`,
           ],
         },
         {
@@ -201,7 +203,7 @@ export const POLICIES = {
         {
           heading: 'Интеллектуальная собственность',
           paragraphs: [
-            `Весь контент сайта — тексты, фотографии, графика и фирменный стиль ${BRAND_NAME} — защищён и не может воспроизводиться или использоваться в коммерческих целях без предварительного письменного разрешения.`,
+            `Весь контент сайта, тексты, фотографии, графика и фирменный стиль ${BRAND_NAME}, защищён и не может воспроизводиться или использоваться в коммерческих целях без предварительного письменного разрешения.`,
           ],
         },
         {
@@ -241,7 +243,7 @@ export const POLICIES = {
         {
           heading: 'Changes Requested by the Guest',
           paragraphs: [
-            'For experiences that do not include a flight ticket, the date can be changed no later than 24 hours before departure. To change the experience or the date, contact us via WhatsApp, Viber or Telegram. Rescheduling is offered subject to availability and the conditions stated in your booking confirmation.',
+            'For experiences that do not include a flight ticket, the date can be changed no later than 24 hours before departure. To change the experience or the date, contact us via WhatsApp or Telegram. Rescheduling is offered subject to availability and the conditions stated in your booking confirmation.',
             'For experiences that include a flight ticket, the date cannot be changed, because the air tickets have been purchased.',
           ],
         },
@@ -291,7 +293,7 @@ export const POLICIES = {
         {
           heading: 'Изменения по инициативе гостя',
           paragraphs: [
-            'Если программа не включает в себя авиабилет, дату можно поменять не позднее, чем за сутки до выезда. Чтобы поменять программу или дату, свяжитесь с нами по WhatsApp, Viber или Telegram. Перенос возможен при наличии мест и в соответствии с условиями вашего подтверждения бронирования.',
+            'Если программа не включает в себя авиабилет, дату можно поменять не позднее, чем за сутки до выезда. Чтобы поменять программу или дату, свяжитесь с нами по WhatsApp или Telegram. Перенос возможен при наличии мест и в соответствии с условиями вашего подтверждения бронирования.',
             'Если программа включает в себя авиабилет, дату поменять нельзя в связи с покупкой авиабилетов.',
           ],
         },

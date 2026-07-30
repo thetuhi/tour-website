@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 /* ── Base layer: ANTALYA JOURNEY premium theme (light default,
-     dark via `.dark` on <html> — see useTheme hook) ─────── */
+     dark via `.dark` on <html>, see useTheme hook) ─────── */
 @layer base {
   html {
     font-family: 'Inter', 'Noto Sans', sans-serif;

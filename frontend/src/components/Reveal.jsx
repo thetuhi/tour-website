@@ -5,7 +5,7 @@ const VARIANTS = { fadeUp, maskUp, scaleIn };
 
 /**
  * Scroll-triggered reveal. Fires once when the element enters the viewport.
- * `preset="maskUp"` needs a clipping parent — use <Reveal.Mask> for headlines.
+ * `preset="maskUp"` needs a clipping parent, use <Reveal.Mask> for headlines.
  *
  * Honours prefers-reduced-motion by dropping the travel while keeping the
  * fade, so the page still reads as composed rather than snapping into place.

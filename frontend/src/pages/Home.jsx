@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import TourCard from '../components/TourCard';
@@ -8,7 +8,7 @@ import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getToursByCategory } from '../data/tours';
 import { BRAND_NAME } from '../config/agency';
-import { DURATION, EASE, HERO_DELAY, VIEWPORT, maskUp, staggerContainer } from '../motion/presets';
+import { DURATION, EASE, VIEWPORT, heroEntranceDelay, maskUp, staggerContainer } from '../motion/presets';
 
 /* ── Editorial section header ──────────────────────────── */
 const SectionHeader = ({ eyebrow, title, subtitle }) => (
@@ -42,7 +42,7 @@ const Divider = () => (
 );
 
 /* ══════════════════════════════════════════════════════════
-   Home — Three-tier layout: Yachts → In-City → Out-of-City
+   Home, Three-tier layout: Yachts → In-City → Out-of-City
    ══════════════════════════════════════════════════════════ */
 const Home = () => {
   const { t } = useTranslation();
@@ -50,7 +50,11 @@ const Home = () => {
   const outOfCity = getToursByCategory('OUTCITY');
   const reduceMotion = useReducedMotion();
 
-  /* Hero parallax — decorative background layer only, never the copy. */
+  /* Read once at mount: on a boot load it is the time left on the splash, on a
+     later navigation there is no curtain to wait for. */
+  const [heroDelay] = useState(heroEntranceDelay);
+
+  /* Hero parallax, decorative background layer only, never the copy. */
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -72,7 +76,7 @@ const Home = () => {
     <div className="pb-24">
 
       {/* ════════════════════════════════════════════════════
-          HERO — Kaleiçi Marina, Antalya
+          HERO, Kaleiçi Marina, Antalya
          ════════════════════════════════════════════════════ */}
       <div
         id="hero-section-wrapper"
@@ -103,7 +107,7 @@ const Home = () => {
         <m.div
           className="relative text-center z-10 px-4 max-w-4xl mx-auto"
           style={reduceMotion ? undefined : { opacity: copyOpacity }}
-          variants={staggerContainer(0.14, HERO_DELAY)}
+          variants={staggerContainer(0.14, heroDelay)}
           initial="hidden"
           animate="visible"
         >
@@ -160,7 +164,7 @@ const Home = () => {
       </div>
 
       {/* ════════════════════════════════════════════════════
-          TIER 1 — Private Yacht Escapes
+          TIER 1, Private Yacht Escapes
          ════════════════════════════════════════════════════ */}
       <section id="yachts" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 md:mt-28 scroll-mt-24">
         <SectionHeader
@@ -185,7 +189,7 @@ const Home = () => {
 
         <Reveal preset="scaleIn">
           <div className="relative group overflow-hidden rounded-3xl min-h-[380px] md:min-h-[480px] flex items-end bg-navy">
-            {/* Background Image with Overlay — below the fold, so loaded lazily */}
+            {/* Background Image with Overlay, below the fold, so loaded lazily */}
             <div className="absolute inset-0 z-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
               <RevealImage
                 src="/images/tours/lusca-vip-yacht-tour/lusca-1.webp"
@@ -234,7 +238,7 @@ const Home = () => {
       <div id="destinations" className="scroll-mt-24"></div>
 
       {/* ════════════════════════════════════════════════════
-          TIER 2 — Discover Antalya (In-City)
+          TIER 2, Discover Antalya (In-City)
          ════════════════════════════════════════════════════ */}
       <section id="in-city" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 md:mt-24">
         <SectionHeader
@@ -259,7 +263,7 @@ const Home = () => {
       <Divider />
 
       {/* ════════════════════════════════════════════════════
-          TIER 3 — Beyond Antalya (Out-of-City Journeys)
+          TIER 3, Beyond Antalya (Out-of-City Journeys)
          ════════════════════════════════════════════════════ */}
       <section id="out-of-city" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 md:mt-24">
         <SectionHeader

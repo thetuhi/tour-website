@@ -1,12 +1,12 @@
 /**
- * ANTALYA JOURNEY experience catalog — single source of truth.
+ * ANTALYA JOURNEY experience catalog, single source of truth.
  *
  * Migrated from the retired Spring Boot backend (DataInitializer META map +
  * seed catalog) on 2026-07-19. Content edits happen here and ship with the
  * next deploy; array order is the editorial display order within a category.
  *
  * To route an experience to a specific representative, add a
- * `contactPhone: '90XXXXXXXXXX'` field — the WhatsApp helper falls back to
+ * `contactPhone: '90XXXXXXXXXX'` field, the WhatsApp helper falls back to
  * the agency default number when absent.
  *
  * `coverImage` overrides which photo listing cards show, without disturbing
@@ -15,7 +15,7 @@
 
 export const TOURS = [
   // ═══════════════════════════════════════════
-  // YACHT — Private yacht escapes
+  // YACHT, Private yacht escapes
   // ═══════════════════════════════════════════
   {
     id: 1,
@@ -24,9 +24,9 @@ export const TOURS = [
     titleEn: 'Lusca VIP Yacht Tour',
     titleRu: 'VIP Прогулка на Яхте Lusca',
     descriptionEn:
-      'Experience the pinnacle of Mediterranean luxury aboard the Lusca — a world-class VIP yacht. Enjoy complete privacy, gourmet dining prepared by an onboard chef, premium open bar, and crystal-clear swimming stops in secluded turquoise coves. Professional crew, snorkeling gear, and sunset champagne service included. An unforgettable day on the Turkish Riviera.',
+      'Experience the pinnacle of Mediterranean luxury aboard the Lusca, a world-class VIP yacht. Enjoy complete privacy, gourmet dining prepared by an onboard chef, premium open bar, and crystal-clear swimming stops in secluded turquoise coves. Professional crew, snorkeling gear, and sunset champagne service included. An unforgettable day on the Turkish Riviera.',
     descriptionRu:
-      'Испытайте вершину средиземноморской роскоши на борту Lusca — яхты VIP-класса мирового уровня. Полная конфиденциальность, изысканная кухня от бортового шеф-повара, премиальный открытый бар и остановки для купания в уединённых бирюзовых бухтах. Профессиональная команда, снаряжение для сноркелинга и шампанское на закате включены. Незабываемый день на Турецкой Ривьере.',
+      'Испытайте вершину средиземноморской роскоши на борту Lusca, яхты VIP-класса мирового уровня. Полная конфиденциальность, изысканная кухня от бортового шеф-повара, премиальный открытый бар и остановки для купания в уединённых бирюзовых бухтах. Профессиональная команда, снаряжение для сноркелинга и шампанское на закате включены. Незабываемый день на Турецкой Ривьере.',
     locationEn: 'Antalya Marina',
     locationRu: 'Марина Анталии',
     durationEn: '4-5 Hours',
@@ -35,13 +35,21 @@ export const TOURS = [
       '/images/tours/lusca-vip-yacht-tour/lusca-1.webp',
       '/images/tours/lusca-vip-yacht-tour/lusca-2.webp',
     ],
-    includedItems: [
+    includedItemsEn: [
       'VIP Captain & Crew',
       'Gourmet Lunch',
       'Premium Open Bar',
       'Snorkeling Equipment',
       'Sunset Champagne',
       'Fuel & Insurance',
+    ],
+    includedItemsRu: [
+      'VIP капитан и экипаж',
+      'Обед от шеф-повара',
+      'Премиальный открытый бар',
+      'Снаряжение для снорклинга',
+      'Шампанское на закате',
+      'Топливо и страховка',
     ],
   },
   {
@@ -51,9 +59,9 @@ export const TOURS = [
     titleEn: 'Brabus VIP Yacht Tour',
     titleRu: 'VIP Тур на Яхте Brabus',
     descriptionEn:
-      'Command the coastline aboard the Brabus — a high-performance luxury day yacht that pairs supercar DNA with open-sea freedom. Carve across the turquoise waters of the Turkish Riviera, drop anchor in hidden coves for swimming and snorkeling, and enjoy premium refreshments served by your private crew. For guests who want their day on the water to feel as thrilling as it is exclusive.',
+      'Command the coastline aboard the Brabus, a high-performance luxury day yacht that pairs supercar DNA with open-sea freedom. Carve across the turquoise waters of the Turkish Riviera, drop anchor in hidden coves for swimming and snorkeling, and enjoy premium refreshments served by your private crew. For guests who want their day on the water to feel as thrilling as it is exclusive.',
     descriptionRu:
-      'Покорите побережье на борту Brabus — высокопроизводительной люксовой яхты, соединившей ДНК суперкара со свободой открытого моря. Пронеситесь по бирюзовым водам Турецкой Ривьеры, бросьте якорь в укромных бухтах для купания и сноркелинга и насладитесь премиальными напитками от личной команды. Для гостей, которые хотят, чтобы день на воде был столь же захватывающим, сколь и эксклюзивным.',
+      'Покорите побережье на борту Brabus, высокопроизводительной люксовой яхты, соединившей ДНК суперкара со свободой открытого моря. Пронеситесь по бирюзовым водам Турецкой Ривьеры, бросьте якорь в укромных бухтах для купания и сноркелинга и насладитесь премиальными напитками от личной команды. Для гостей, которые хотят, чтобы день на воде был столь же захватывающим, сколь и эксклюзивным.',
     locationEn: 'Antalya Marina',
     locationRu: 'Марина Анталии',
     durationEn: '4-5 Hours',
@@ -67,18 +75,25 @@ export const TOURS = [
       '/images/tours/brabus-vip-yacht-tour/brabus-6.webp',
     ],
     coverImage: '/images/tours/brabus-vip-yacht-tour/brabus-5.webp',
-    includedItems: [
+    includedItemsEn: [
       'Private Captain & Crew',
       'Premium Refreshments',
       'Swimming & Snorkeling Stops',
       'Sound System On Board',
       'Fuel & Insurance',
     ],
+    includedItemsRu: [
+      'Личный капитан и экипаж',
+      'Премиальные напитки и закуски',
+      'Остановки для купания и снорклинга',
+      'Музыкальная система на борту',
+      'Топливо и страховка',
+    ],
   },
   {
     id: 3,
     slug: 'kemer-group-yacht-tour',
-    // In-city group experience, not a private VIP charter — kept out of the
+    // In-city group experience, not a private VIP charter, kept out of the
     // YACHT segment (and its VIP badge) which is reserved for Lusca & Brabus.
     category: 'INCITY',
     titleEn: 'Kemer Group Yacht Tour',
@@ -92,14 +107,21 @@ export const TOURS = [
     durationEn: 'Full Day',
     durationRu: 'Весь день',
     imageUrls: ['/images/tours/kemer-group-yacht-tour/kemer-1.webp'],
-    includedItems: [
+    includedItemsEn: [
       'Lunch on Board',
       'Swimming Stops',
       'Professional Crew',
       'Round-Trip Transfer',
       'Insurance',
     ],
-    // Per-tour FAQ — Russian only, agency-supplied source of truth.
+    includedItemsRu: [
+      'Обед на борту',
+      'Остановки для купания',
+      'Профессиональный экипаж',
+      'Трансфер в обе стороны',
+      'Страховка',
+    ],
+    // Per-tour FAQ, Russian only, agency-supplied source of truth.
     // Answers are arrays of paragraphs (see FaqAccordion).
     faq: [
       {
@@ -125,7 +147,7 @@ export const TOURS = [
         ru: {
           question: 'Сколько длится морская прогулка?',
           answer: [
-            'Это экскурсия на целый день — с утра до второй половины дня, включая трансфер из отеля и обратно.',
+            'Это экскурсия на целый день, с утра до второй половины дня, включая трансфер из отеля и обратно.',
           ],
         },
       },
@@ -161,7 +183,7 @@ export const TOURS = [
         ru: {
           question: 'Можно ли участвовать, если я не умею плавать?',
           answer: [
-            'Да. Купание необязательно, а на борту есть спасательные жилеты — вы можете просто отдыхать на яхте и наслаждаться программой.',
+            'Да. Купание необязательно, а на борту есть спасательные жилеты, вы можете просто отдыхать на яхте и наслаждаться программой.',
           ],
         },
       },
@@ -197,7 +219,7 @@ export const TOURS = [
         ru: {
           question: 'Когда лучше ехать на прогулку на яхте в Кемере?',
           answer: [
-            'Лучшее время — с поздней весны до ранней осени, когда тепло и море спокойное. Утренние выезды особенно удобны.',
+            'Лучшее время, с поздней весны до ранней осени, когда тепло и море спокойное. Утренние выезды особенно удобны.',
           ],
         },
       },
@@ -206,7 +228,7 @@ export const TOURS = [
         ru: {
           question: 'Почему туристы выбирают именно эту экскурсию?',
           answer: [
-            'За красивые бухты, обед на борту, пенную вечеринку, включённый трансфер и русскоговорящий персонал — яркий и беззаботный день на море для всей семьи.',
+            'За красивые бухты, обед на борту, пенную вечеринку, включённый трансфер и русскоговорящий персонал, яркий и беззаботный день на море для всей семьи.',
           ],
         },
       },
@@ -214,7 +236,7 @@ export const TOURS = [
   },
 
   // ═══════════════════════════════════════════
-  // INCITY — Antalya & immediate surroundings
+  // INCITY, Antalya & immediate surroundings
   // ═══════════════════════════════════════════
   {
     id: 4,
@@ -223,9 +245,9 @@ export const TOURS = [
     titleEn: 'Green Canyon Boat Tour',
     titleRu: 'Прогулка на Катере по Грин-Каньону',
     descriptionEn:
-      "Cruise the emerald waters of Green Canyon — Turkey's largest canyon reservoir, framed by the pine-covered peaks of the Taurus Mountains. Glide past dramatic cliffs on a comfortable boat, swim in refreshing spring-fed waters, and enjoy a lakeside lunch surrounded by pure mountain silence. A serene escape just beyond Antalya.",
+      "Cruise the emerald waters of Green Canyon, Turkey's largest canyon reservoir, framed by the pine-covered peaks of the Taurus Mountains. Glide past dramatic cliffs on a comfortable boat, swim in refreshing spring-fed waters, and enjoy a lakeside lunch surrounded by pure mountain silence. A serene escape just beyond Antalya.",
     descriptionRu:
-      'Прогулка по изумрудным водам Грин-Каньона — крупнейшего каньонного водохранилища Турции в окружении сосновых вершин Таврских гор. Проплывите мимо величественных скал на комфортабельном катере, искупайтесь в освежающей родниковой воде и пообедайте на берегу в окружении горной тишины. Умиротворяющее путешествие совсем рядом с Анталией.',
+      'Прогулка по изумрудным водам Грин-Каньона, крупнейшего каньонного водохранилища Турции в окружении сосновых вершин Таврских гор. Проплывите мимо величественных скал на комфортабельном катере, искупайтесь в освежающей родниковой воде и пообедайте на берегу в окружении горной тишины. Умиротворяющее путешествие совсем рядом с Анталией.',
     locationEn: 'Manavgat, Antalya',
     locationRu: 'Манавгат, Анталия',
     durationEn: 'Full Day',
@@ -234,7 +256,7 @@ export const TOURS = [
       '/images/tours/green-canyon/green-canyon-1.webp',
       '/images/tours/green-canyon/green-canyon-2.webp',
     ],
-    includedItems: [
+    includedItemsEn: [
       'Boat Cruise',
       'Lunch',
       'Swimming Stops',
@@ -242,19 +264,27 @@ export const TOURS = [
       'Professional Guide',
       'Insurance',
     ],
+    includedItemsRu: [
+      'Прогулка на катере',
+      'Обед',
+      'Остановки для купания',
+      'Трансфер в обе стороны',
+      'Профессиональный гид',
+      'Страховка',
+    ],
     faq: [
       {
         id: 'duration',
         en: {
           question: 'How long is the excursion?',
           answer: [
-            'The excursion lasts about 10 hours — from morning to evening, including the round-trip hotel transfer.',
+            'The excursion lasts about 10 hours, from morning to evening, including the round-trip hotel transfer.',
           ],
         },
         ru: {
           question: 'Сколько длится экскурсия?',
           answer: [
-            'Экскурсия длится около 10 часов — с утра до вечера, включая трансфер из отеля и обратно.',
+            'Экскурсия длится около 10 часов, с утра до вечера, включая трансфер из отеля и обратно.',
           ],
         },
       },
@@ -299,7 +329,7 @@ export const TOURS = [
         ru: {
           question: 'Подходит ли экскурсия детям?',
           answer: [
-            'Да. Green Canyon — спокойная экскурсия без физических нагрузок, поэтому она отлично подходит для семей с детьми.',
+            'Да. Green Canyon, спокойная экскурсия без физических нагрузок, поэтому она отлично подходит для семей с детьми.',
           ],
         },
       },
@@ -387,9 +417,9 @@ export const TOURS = [
     titleEn: 'Göynük Canyon',
     titleRu: 'Каньон Гёйнюк',
     descriptionEn:
-      'Escape into Göynük Canyon, a hidden natural wonder tucked beneath the Taurus Mountains near Kemer. Wade through cool, crystal-clear turquoise pools framed by towering grey cliffs, walk deep into the narrowing gorge, and cool off beneath shady pines and cascading spring water. A refreshing, easygoing day in nature — perfect for families, couples and anyone craving pure mountain air just minutes from the coast.',
+      'Escape into Göynük Canyon, a hidden natural wonder tucked beneath the Taurus Mountains near Kemer. Wade through cool, crystal-clear turquoise pools framed by towering grey cliffs, walk deep into the narrowing gorge, and cool off beneath shady pines and cascading spring water. A refreshing, easygoing day in nature, perfect for families, couples and anyone craving pure mountain air just minutes from the coast.',
     descriptionRu:
-      'Откройте для себя каньон Гёйнюк — скрытое чудо природы у подножия Таврских гор рядом с Кемером. Пройдите по прохладным кристально чистым бирюзовым заводям в окружении высоких серых скал, углубитесь в сужающееся ущелье и освежитесь в тени сосен под струями родниковой воды. Освежающий и спокойный день на природе — идеально для семей, пар и всех, кто хочет вдохнуть чистый горный воздух всего в нескольких минутах от побережья.',
+      'Откройте для себя каньон Гёйнюк, скрытое чудо природы у подножия Таврских гор рядом с Кемером. Пройдите по прохладным кристально чистым бирюзовым заводям в окружении высоких серых скал, углубитесь в сужающееся ущелье и освежитесь в тени сосен под струями родниковой воды. Освежающий и спокойный день на природе, идеально для семей, пар и всех, кто хочет вдохнуть чистый горный воздух всего в нескольких минутах от побережья.',
     locationEn: 'Göynük, Kemer',
     locationRu: 'Гёйнюк, Кемер',
     durationEn: 'Half Day',
@@ -401,13 +431,19 @@ export const TOURS = [
       '/images/tours/goynuk-canyon/goynuk-canyon-3.webp',
     ],
     coverImage: '/images/tours/goynuk-canyon/goynuk-canyon-1.webp',
-    includedItems: [
+    includedItemsEn: [
       'Round-Trip Transfer',
       'Canyon Entry',
       'Swimming Stops',
       'Insurance',
     ],
-    // Per-tour FAQ — Russian is the agency-supplied source of truth, English is
+    includedItemsRu: [
+      'Трансфер в обе стороны',
+      'Вход в каньон',
+      'Остановки для купания',
+      'Страховка',
+    ],
+    // Per-tour FAQ, Russian is the agency-supplied source of truth, English is
     // a faithful translation. Answers are arrays of paragraphs (see FaqAccordion).
     faq: [
       {
@@ -415,13 +451,13 @@ export const TOURS = [
         en: {
           question: 'Where is Göynük Canyon located?',
           answer: [
-            'Göynük Canyon is located near the village of Göynük, about 15 km from the centre of Kemer, at the foot of the Taurus Mountains. The easiest way to get there is on an excursion from Kemer — the bus picks you up right at your hotel.',
+            'Göynük Canyon is located near the village of Göynük, about 15 km from the centre of Kemer, at the foot of the Taurus Mountains. The easiest way to get there is on an excursion from Kemer, the bus picks you up right at your hotel.',
           ],
         },
         ru: {
           question: 'Где находится Гёйнюк Каньон?',
           answer: [
-            'Каньон Гёйнюк находится рядом с посёлком Гёйнюк, примерно в 15 км от центра Кемера, у подножия Таврских гор. Добраться удобнее всего на экскурсии из Кемера — автобус забирает прямо от отеля.',
+            'Каньон Гёйнюк находится рядом с посёлком Гёйнюк, примерно в 15 км от центра Кемера, у подножия Таврских гор. Добраться удобнее всего на экскурсии из Кемера, автобус забирает прямо от отеля.',
           ],
         },
       },
@@ -490,13 +526,13 @@ export const TOURS = [
         en: {
           question: 'What activities are available in the canyon?',
           answer: [
-            'The canyon offers zipline, rafting and canyoning — for an extra fee and optional. You can also simply walk the trails, swim and photograph the nature of the Taurus Mountains.',
+            'The canyon offers zipline, rafting and canyoning, for an extra fee and optional. You can also simply walk the trails, swim and photograph the nature of the Taurus Mountains.',
           ],
         },
         ru: {
           question: 'Какие развлечения доступны в каньоне?',
           answer: [
-            'В каньоне доступны зиплайн, рафтинг и каньонинг — за отдельную плату и по желанию. Также можно просто гулять по тропам, купаться и фотографировать природу Таврских гор.',
+            'В каньоне доступны зиплайн, рафтинг и каньонинг, за отдельную плату и по желанию. Также можно просто гулять по тропам, купаться и фотографировать природу Таврских гор.',
           ],
         },
       },
@@ -505,13 +541,13 @@ export const TOURS = [
         en: {
           question: 'How much free time will there be?',
           answer: [
-            'There is usually a few hours of free time — enough to walk along the river, swim, relax and take photos. The guide will tell you the exact meeting time on site.',
+            'There is usually a few hours of free time, enough to walk along the river, swim, relax and take photos. The guide will tell you the exact meeting time on site.',
           ],
         },
         ru: {
           question: 'Сколько свободного времени будет?',
           answer: [
-            'Свободного времени обычно несколько часов — достаточно, чтобы прогуляться вдоль реки, искупаться, отдохнуть и сделать фотографии. Точное время сбора сообщит сопровождающий на месте.',
+            'Свободного времени обычно несколько часов, достаточно, чтобы прогуляться вдоль реки, искупаться, отдохнуть и сделать фотографии. Точное время сбора сообщит сопровождающий на месте.',
           ],
         },
       },
@@ -520,13 +556,13 @@ export const TOURS = [
         en: {
           question: 'Do I need special footwear?',
           answer: [
-            'No special gear is needed, but comfortable non-slip shoes are important — trainers or trekking sandals. Beach flip-flops are not suitable.',
+            'No special gear is needed, but comfortable non-slip shoes are important, trainers or trekking sandals. Beach flip-flops are not suitable.',
           ],
         },
         ru: {
           question: 'Нужно ли брать специальную обувь?',
           answer: [
-            'Специальное снаряжение не нужно, но важна удобная нескользящая обувь — кроссовки или трекинговые сандалии. Пляжные шлёпанцы не подойдут.',
+            'Специальное снаряжение не нужно, но важна удобная нескользящая обувь, кроссовки или трекинговые сандалии. Пляжные шлёпанцы не подойдут.',
           ],
         },
       },
@@ -541,7 +577,7 @@ export const TOURS = [
         ru: {
           question: 'Когда лучше посещать Гёйнюк Каньон?',
           answer: [
-            'Лучшее время — с поздней весны до ранней осени. Летом в каньоне прохладно и приятно, а утренние выезды самые комфортные.',
+            'Лучшее время, с поздней весны до ранней осени. Летом в каньоне прохладно и приятно, а утренние выезды самые комфортные.',
           ],
         },
       },
@@ -586,7 +622,7 @@ export const TOURS = [
         ru: {
           question: 'Почему стоит выбрать именно эту экскурсию?',
           answer: [
-            'Гёйнюк Каньон — это красивая природа Таврских гор, чистая горная река и отличные фото совсем рядом с Кемером. Всё включено, есть русскоговорящий персонал, а формат подходит и для активного, и для семейного отдыха.',
+            'Гёйнюк Каньон, это красивая природа Таврских гор, чистая горная река и отличные фото совсем рядом с Кемером. Всё включено, есть русскоговорящий персонал, а формат подходит и для активного, и для семейного отдыха.',
           ],
         },
       },
@@ -612,7 +648,7 @@ export const TOURS = [
       '/images/tours/triple-thrill-adventure-canyon-safari-rafting/jeep-safari.webp',
       '/images/tours/triple-thrill-adventure-canyon-safari-rafting/monster-jet.webp',
     ],
-    includedItems: [
+    includedItemsEn: [
       'Rafting Equipment',
       'Jeep Safari',
       'Canyon Trek',
@@ -620,6 +656,15 @@ export const TOURS = [
       'Lunch',
       'Round-Trip Transfer',
       'Insurance',
+    ],
+    includedItemsRu: [
+      'Снаряжение для рафтинга',
+      'Джип-сафари',
+      'Поход по каньону',
+      'Профессиональный гид',
+      'Обед',
+      'Трансфер в обе стороны',
+      'Страховка',
     ],
     faq: [
       {
@@ -781,9 +826,9 @@ export const TOURS = [
     titleEn: 'Land of Legends Theme Park',
     titleRu: 'Тематический Парк Земля Легенд',
     descriptionEn:
-      "A full day at the kingdom of thrills and wonder — Turkey's largest entertainment complex. Ride world-class roller coasters, cool off in the massive waterpark with over 40 slides, watch a spectacular dolphin show, and explore themed adventure zones. Perfect for families and adrenaline seekers alike. All entry tickets and hotel transfer included.",
+      "A full day at the kingdom of thrills and wonder, Turkey's largest entertainment complex. Ride world-class roller coasters, cool off in the massive waterpark with over 40 slides, watch a spectacular dolphin show, and explore themed adventure zones. Perfect for families and adrenaline seekers alike. All entry tickets and hotel transfer included.",
     descriptionRu:
-      'Полный день в королевстве восторга и чудес — крупнейшем развлекательном комплексе Турции. Аттракционы мирового класса, огромный аквапарк с более чем 40 горками, захватывающее шоу дельфинов и тематические зоны приключений. Идеально для семей и любителей адреналина. Все входные билеты и трансфер включены.',
+      'Полный день в королевстве восторга и чудес, крупнейшем развлекательном комплексе Турции. Аттракционы мирового класса, огромный аквапарк с более чем 40 горками, захватывающее шоу дельфинов и тематические зоны приключений. Идеально для семей и любителей адреналина. Все входные билеты и трансфер включены.',
     locationEn: 'Belek, Antalya',
     locationRu: 'Белек, Анталия',
     durationEn: 'Full Day',
@@ -796,7 +841,8 @@ export const TOURS = [
       '/images/tours/land-of-legends-theme-park/tematik-park-aquapark.webp',
       '/images/tours/land-of-legends-theme-park/tematik-park-map.webp',
     ],
-    includedItems: ['All Entry Tickets', 'Waterpark Access', 'Round-Trip Transfer'],
+    includedItemsEn: ['All Entry Tickets', 'Waterpark Access', 'Round-Trip Transfer'],
+    includedItemsRu: ['Все входные билеты', 'Доступ в аквапарк', 'Трансфер в обе стороны'],
     faq: [
       {
         id: 'duration',
@@ -942,9 +988,9 @@ export const TOURS = [
     titleEn: 'Antalya Aquarium Complex Experience',
     titleRu: 'Комплекс Аквариума Анталии',
     descriptionEn:
-      "Discover a world of wonder at the Antalya Aquarium Complex — one of the planet's largest tunnel aquariums. Walk through 131 meters of underwater tunnel surrounded by sharks, rays, and tropical marine life. Then explore the legendary DaVinci Wax Museum with lifelike figures of Kobe Bryant, Michael Jackson, and Leonardo da Vinci. Finish with a magical visit to the Snow Room at -5°C. An all-in-one entertainment experience.",
+      "Discover a world of wonder at the Antalya Aquarium Complex, one of the planet's largest tunnel aquariums. Walk through 131 meters of underwater tunnel surrounded by sharks, rays, and tropical marine life. Then explore the legendary DaVinci Wax Museum with lifelike figures of Kobe Bryant, Michael Jackson, and Leonardo da Vinci. Finish with a magical visit to the Snow Room at -5°C. An all-in-one entertainment experience.",
     descriptionRu:
-      'Откройте мир чудес в Комплексе Аквариума Анталии — одном из крупнейших туннельных аквариумов планеты. Пройдите 131 метр подводного туннеля в окружении акул, скатов и тропических обитателей. Затем исследуйте легендарный Музей восковых фигур Да Винчи с реалистичными фигурами Коби Брайанта, Майкла Джексона и Леонардо да Винчи. Завершите посещение волшебной Снежной комнатой при -5°C. Всё в одном месте.',
+      'Откройте мир чудес в Комплексе Аквариума Анталии, одном из крупнейших туннельных аквариумов планеты. Пройдите 131 метр подводного туннеля в окружении акул, скатов и тропических обитателей. Затем исследуйте легендарный Музей восковых фигур Да Винчи с реалистичными фигурами Коби Брайанта, Майкла Джексона и Леонардо да Винчи. Завершите посещение волшебной Снежной комнатой при -5°C. Всё в одном месте.',
     locationEn: 'Konyaaltı, Antalya',
     locationRu: 'Коньяалты, Анталия',
     durationEn: 'Half Day',
@@ -952,18 +998,24 @@ export const TOURS = [
     imageUrls: [
       '/images/tours/antalya-aquarium-complex-experience/akvaryum-tunel.webp',
       '/images/tours/antalya-aquarium-complex-experience/antalya-akvaryum.webp',
+      '/images/tours/antalya-aquarium-complex-experience/akvaryum-2.webp',
+      '/images/tours/antalya-aquarium-complex-experience/akvaryum-3.webp',
       '/images/tours/antalya-aquarium-complex-experience/davinci-balmumu.webp',
       '/images/tours/antalya-aquarium-complex-experience/michael-balmumu.webp',
       '/images/tours/antalya-aquarium-complex-experience/kobe-balmumu.webp',
       '/images/tours/antalya-aquarium-complex-experience/akvaryum-karodasi.webp',
-      '/images/tours/antalya-aquarium-complex-experience/akvaryum-3.webp',
-      '/images/tours/antalya-aquarium-complex-experience/akvaryum-2.webp',
     ],
-    includedItems: [
+    includedItemsEn: [
       'Aquarium Entry',
       'Wax Museum Entry',
       'Snow Room Access',
       'Round-Trip Transfer',
+    ],
+    includedItemsRu: [
+      'Вход в аквариум',
+      'Вход в музей восковых фигур',
+      'Доступ в снежную комнату',
+      'Трансфер в обе стороны',
     ],
     faq: [
       {
@@ -1105,7 +1157,7 @@ export const TOURS = [
   },
 
   // ═══════════════════════════════════════════
-  // OUTCITY — Grand journeys beyond Antalya
+  // OUTCITY, Grand journeys beyond Antalya
   // ═══════════════════════════════════════════
   {
     id: 8,
@@ -1128,13 +1180,21 @@ export const TOURS = [
       '/images/tours/istanbul-history-tour/istanbul-3.webp',
       '/images/tours/istanbul-history-tour/istanbul-2.webp',
     ],
-    includedItems: [
+    includedItemsEn: [
       'Round-Trip Flight',
       'Hotel (1 Night)',
       'Breakfast & Lunch',
       'All Entry Tickets',
       'Licensed Guide',
       'Bosphorus Cruise',
+    ],
+    includedItemsRu: [
+      'Перелёт в обе стороны',
+      'Отель (1 ночь)',
+      'Завтрак и обед',
+      'Все входные билеты',
+      'Лицензированный гид',
+      'Прогулка по Босфору',
     ],
     faq: [
       {
@@ -1157,13 +1217,13 @@ export const TOURS = [
         en: {
           question: 'Is the flight included in the price?',
           answer: [
-            'Yes. The price of the excursion includes the flight on the Antalya — Istanbul — Antalya route, as well as all necessary transfers.',
+            'Yes. The price of the excursion includes the flight on the Antalya-Istanbul-Antalya route, as well as all necessary transfers.',
           ],
         },
         ru: {
           question: 'Входит ли авиаперелёт в стоимость?',
           answer: [
-            'Да. В стоимость экскурсии входит перелёт по маршруту Анталия — Стамбул — Анталия, а также все необходимые трансферы.',
+            'Да. В стоимость экскурсии входит перелёт по маршруту Анталия-Стамбул-Анталия, а также все необходимые трансферы.',
           ],
         },
       },
@@ -1294,24 +1354,24 @@ export const TOURS = [
     slug: 'pamukkale-hierapolis-day-trip',
     category: 'OUTCITY',
     titleEn: 'Pamukkale Hierapolis Day Trip',
-    titleRu: 'Поездка в Памуккале — Иераполис',
+    titleRu: 'Поездка в Памуккале-Иераполис',
     descriptionEn:
-      "Journey to the UNESCO World Heritage Site of Pamukkale — the breathtaking Cotton Castle of cascading white travertine terraces and warm thermal pools. Walk barefoot on the ancient calcium formations, swim in Cleopatra's thermal pool, and explore the remarkably preserved Greco-Roman city of Hierapolis with its grand theatre and sacred necropolis. Breakfast, lunch, and all entry fees included.",
+      "Journey to the UNESCO World Heritage Site of Pamukkale, the breathtaking Cotton Castle of cascading white travertine terraces and warm thermal pools. Walk barefoot on the ancient calcium formations, swim in Cleopatra's thermal pool, and explore the remarkably preserved Greco-Roman city of Hierapolis with its grand theatre and sacred necropolis. Breakfast, lunch, and all entry fees included.",
     descriptionRu:
-      'Отправьтесь к объекту Всемирного наследия ЮНЕСКО Памуккале — захватывающему «Хлопковому замку» из каскадных белых травертиновых террас и тёплых термальных бассейнов. Пройдитесь босиком по древним кальциевым образованиям, искупайтесь в термальном бассейне Клеопатры и исследуйте прекрасно сохранившийся греко-римский город Иераполис с его величественным театром и священным некрополем.',
+      'Отправьтесь к объекту Всемирного наследия ЮНЕСКО Памуккале, захватывающему «Хлопковому замку» из каскадных белых травертиновых террас и тёплых термальных бассейнов. Пройдитесь босиком по древним кальциевым образованиям, искупайтесь в термальном бассейне Клеопатры и исследуйте прекрасно сохранившийся греко-римский город Иераполис с его величественным театром и священным некрополем.',
     locationEn: 'Pamukkale, Denizli',
     locationRu: 'Памуккале, Денизли',
     durationEn: 'Full Day',
     durationRu: 'Весь день',
     imageUrls: [
-      '/images/tours/pamukkale-hierapolis-day-trip/pamukkale-5.webp',
+      '/images/tours/pamukkale-hierapolis-day-trip/pamukkale-1.webp',
       '/images/tours/pamukkale-hierapolis-day-trip/pamukkale-6.webp',
       '/images/tours/pamukkale-hierapolis-day-trip/pamukkale-2.webp',
       '/images/tours/pamukkale-hierapolis-day-trip/pamukkale-3.webp',
       '/images/tours/pamukkale-hierapolis-day-trip/pamukkale-4.webp',
     ],
-    coverImage: '/images/tours/pamukkale-hierapolis-day-trip/pamukkale-5.webp',
-    includedItems: [
+    coverImage: '/images/tours/pamukkale-hierapolis-day-trip/pamukkale-1.webp',
+    includedItemsEn: [
       'Breakfast',
       'Lunch',
       'All Entry Tickets',
@@ -1319,7 +1379,15 @@ export const TOURS = [
       'Round-Trip Transfer',
       'Licensed Guide',
     ],
-    // Per-tour FAQ — Russian is the agency-supplied source of truth, English is
+    includedItemsRu: [
+      'Завтрак',
+      'Обед',
+      'Все входные билеты',
+      'Бассейн Клеопатры',
+      'Трансфер в обе стороны',
+      'Лицензированный гид',
+    ],
+    // Per-tour FAQ, Russian is the agency-supplied source of truth, English is
     // a faithful translation. Answers are arrays of paragraphs (see FaqAccordion).
     faq: [
       {
@@ -1498,12 +1566,19 @@ export const TOURS = [
       '/images/tours/cappadocia-adventure-balloons/kapadokya-8.webp',
       '/images/tours/cappadocia-adventure-balloons/kapadokya-1.webp',
     ],
-    includedItems: [
+    includedItemsEn: [
       'Cave Hotel (1 Night)',
       'Breakfast & Dinner',
       'All Entry Tickets',
       'Round-Trip Transfer',
       'Licensed Guide',
+    ],
+    includedItemsRu: [
+      'Пещерный отель (1 ночь)',
+      'Завтрак и ужин',
+      'Все входные билеты',
+      'Трансфер в обе стороны',
+      'Лицензированный гид',
     ],
     faq: [
       {
@@ -1517,7 +1592,7 @@ export const TOURS = [
         ru: {
           question: 'Сколько длится экскурсия в Каппадокию?',
           answer: [
-            'Экскурсия длится 2 дня и 1 ночь. Выезд начинается рано утром, а возвращение — вечером следующего дня. За это время вы посетите главные достопримечательности Каппадокии и встретите знаменитый рассвет с воздушными шарами.',
+            'Экскурсия длится 2 дня и 1 ночь. Выезд начинается рано утром, а возвращение, вечером следующего дня. За это время вы посетите главные достопримечательности Каппадокии и встретите знаменитый рассвет с воздушными шарами.',
           ],
         },
       },

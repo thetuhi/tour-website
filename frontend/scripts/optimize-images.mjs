@@ -2,7 +2,7 @@
  * One-shot image optimizer for MARS TRAVEL.
  *
  * For every mapped source under public/images it writes a WebP derivative
- * (visually lossless: quality 85, max 2000px — 2560px for the hero) under the
+ * (visually lossless: quality 85, max 2000px, 2560px for the hero) under the
  * new clean name, then moves the heavy original into ../originals/ (gitignored)
  * so print-quality masters are never lost. Folder names are normalized to
  * lowercase kebab-case at the same time.
@@ -42,7 +42,7 @@ const MAPPING = [
   ['tours/green-canyon/Green-Canyon-1.png', 'tours/green-canyon/green-canyon-1.webp'],
   ['tours/green-canyon/ChatGPT Image 12 Tem 2026 20_02_51.png', 'tours/green-canyon/green-canyon-2.webp'],
 
-  ['tours/triple-thrill-adventure-canyon-safari-rafting/Tazı-kanyon.png', 'tours/triple-thrill-adventure-canyon-safari-rafting/tazi-kanyon.webp'],
+  ['tours/triple-thrill-adventure-canyon-safari-rafting/Tazi-kanyon-kapak.png', 'tours/triple-thrill-adventure-canyon-safari-rafting/tazi-kanyon.webp'],
   ['tours/triple-thrill-adventure-canyon-safari-rafting/rafting.jpg', 'tours/triple-thrill-adventure-canyon-safari-rafting/rafting.webp'],
   ['tours/triple-thrill-adventure-canyon-safari-rafting/jepp-safari.png', 'tours/triple-thrill-adventure-canyon-safari-rafting/jeep-safari.webp'],
   ['tours/triple-thrill-adventure-canyon-safari-rafting/monster-jet.png', 'tours/triple-thrill-adventure-canyon-safari-rafting/monster-jet.webp'],
@@ -52,7 +52,6 @@ const MAPPING = [
   ['tours/land-of-legends-theme-park/tematikpark-7png.png', 'tours/land-of-legends-theme-park/tematik-park-7.webp'],
   ['tours/land-of-legends-theme-park/tematikpark10.png', 'tours/land-of-legends-theme-park/tematik-park-10.webp'],
   ['tours/land-of-legends-theme-park/temtatikpark-map.png', 'tours/land-of-legends-theme-park/tematik-park-map.webp'],
-  ['tours/land-of-legends-theme-park/tema-park.png', 'tours/land-of-legends-theme-park/tema-park.webp'],
 
   ['tours/antalya-aquarium-complex-experience/Akvaryum-tunel.png', 'tours/antalya-aquarium-complex-experience/akvaryum-tunel.webp'],
   ['tours/antalya-aquarium-complex-experience/Antalya-Akvaryum.jpg', 'tours/antalya-aquarium-complex-experience/antalya-akvaryum.webp'],
@@ -68,7 +67,7 @@ const MAPPING = [
   ['tours/istanbul-history-tour/Istanbul-3.jpg', 'tours/istanbul-history-tour/istanbul-3.webp'],
   ['tours/istanbul-history-tour/Istanbul-2.jpg', 'tours/istanbul-history-tour/istanbul-2.webp'],
 
-  ['tours/pamukkale-hierapolis-day-trip/Pamukkale-real.png', 'tours/pamukkale-hierapolis-day-trip/pamukkale-real.webp'],
+  ['tours/pamukkale-hierapolis-day-trip/Pamukkale-1.png', 'tours/pamukkale-hierapolis-day-trip/pamukkale-1.webp'],
   ['tours/pamukkale-hierapolis-day-trip/Pamukkale-2.jpg', 'tours/pamukkale-hierapolis-day-trip/pamukkale-2.webp'],
   ['tours/pamukkale-hierapolis-day-trip/Pamukkale-3.jpg', 'tours/pamukkale-hierapolis-day-trip/pamukkale-3.webp'],
   ['tours/pamukkale-hierapolis-day-trip/Pamukkale-4.jpg', 'tours/pamukkale-hierapolis-day-trip/pamukkale-4.webp'],

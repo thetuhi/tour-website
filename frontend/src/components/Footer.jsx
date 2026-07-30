@@ -1,20 +1,18 @@
 import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import LogoMark from './Logo';
-import { FaTiktok, FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaTelegramPlane } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-import { WHATSAPP_NUMBER } from '../utils/whatsapp';
+import { WHATSAPP_NUMBER, CONTACT_PHONE_DISPLAY, generateTelegramLink } from '../utils/whatsapp';
 import { recordLead } from '../utils/leads';
 import { POLICIES, POLICY_ORDER } from '../content/policies';
 import { BRAND_NAME, AGENCY_NAME, AGENCY_LICENSE_NUMBER, SOCIAL_LINKS, OFFICE } from '../config/agency';
-import { trackEvent } from '../utils/analytics';
+import { trackEvent, analyticsAvailable, openCookieSettings } from '../utils/measure';
 import OfficeMap from './OfficeMap';
 
 /** Icon per social platform; extend alongside SOCIAL_LINKS in config/agency.js. */
-const SOCIAL_ICONS = { tiktok: FaTiktok };
+const SOCIAL_ICONS = {};
 import TursabBadge from './TursabBadge';
-
-const CONTACT_PHONE_DISPLAY = '+90 534 319 48 15';
 
 /**
  * Premium navy site footer: brand + relationship statement, explore and
@@ -30,14 +28,18 @@ const Footer = ({ withCtaClearance = false }) => {
 
   return (
     <footer className={`bg-navy text-white ${withCtaClearance ? 'pb-28 lg:pb-0' : ''}`}>
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent" aria-hidden="true" />
+      <div className="h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" aria-hidden="true" />
 
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_0.9fr_1.1fr_1.3fr] lg:gap-12">
 
           {/* Brand + relationship statement */}
           <div>
-            <Link to="/" className="inline-flex items-center gap-2.5 text-white transition-opacity hover:opacity-80">
+            <Link
+              to="/"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="inline-flex items-center gap-2.5 text-white transition-opacity hover:opacity-80"
+            >
               <LogoMark size={26} className="text-primary" />
               <span className="font-display text-lg font-bold uppercase tracking-[0.18em]">
                 {BRAND_NAME}
@@ -57,11 +59,11 @@ const Footer = ({ withCtaClearance = false }) => {
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`${label} — ${handle}`}
+                        aria-label={`${label}, ${handle}`}
                         onClick={() => trackEvent('social_click', { platform: id })}
-                        className="inline-flex items-center gap-2.5 border border-white/15 px-4 py-2.5 text-sm text-white/75 transition-colors hover:border-gold/60 hover:text-white"
+                        className="inline-flex items-center gap-2.5 border border-white/15 px-4 py-2.5 text-sm text-white/75 transition-colors hover:border-primary/60 hover:text-white"
                       >
-                        {Icon && <Icon size={16} className="shrink-0 text-gold" />}
+                        {Icon && <Icon size={16} className="shrink-0 text-primary" />}
                         {handle}
                       </a>
                     );
@@ -134,6 +136,20 @@ const Footer = ({ withCtaClearance = false }) => {
                   </Link>
                 </li>
               ))}
+              {/* Withdrawing consent has to be as easy as giving it (KVKK/GDPR),
+                  so the re-open link sits with the other legal links rather than
+                  as a stray button under the copyright. */}
+              {analyticsAvailable() && (
+                <li>
+                  <button
+                    type="button"
+                    onClick={openCookieSettings}
+                    className="text-left text-white/70 transition-colors hover:text-white"
+                  >
+                    {t('cookie.settings')}
+                  </button>
+                </li>
+              )}
             </ul>
           </nav>
 
@@ -161,9 +177,9 @@ const Footer = ({ withCtaClearance = false }) => {
               </div>
 
               <div className="mt-4 space-y-2.5 text-xs text-white/60">
-                <p className="flex items-center gap-2">
-                  <MapPin size={14} className="shrink-0 text-gold" />
-                  {OFFICE.shortAddress}
+                <p className="flex items-start gap-2">
+                  <MapPin size={14} className="mt-0.5 shrink-0 text-primary" />
+                  {OFFICE.address}
                 </p>
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
@@ -172,7 +188,17 @@ const Footer = ({ withCtaClearance = false }) => {
                   onClick={() => recordLead({ language: i18n.language, source: 'footer-phone' })}
                   className="flex items-center gap-2 transition-colors hover:text-white"
                 >
-                  <FaWhatsapp size={14} className="shrink-0 text-gold" />
+                  <FaWhatsapp size={14} className="shrink-0 text-primary" />
+                  {CONTACT_PHONE_DISPLAY}
+                </a>
+                <a
+                  href={generateTelegramLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => recordLead({ language: i18n.language, source: 'footer-telegram' })}
+                  className="flex items-center gap-2 transition-colors hover:text-white"
+                >
+                  <FaTelegramPlane size={14} className="shrink-0 text-primary" />
                   {CONTACT_PHONE_DISPLAY}
                 </a>
               </div>
@@ -180,12 +206,13 @@ const Footer = ({ withCtaClearance = false }) => {
           </div>
         </div>
 
-        {/* Bottom bar — the legal agency identity (name + licence number) is not
-            repeated here; it lives solely in the Official Agency card above. The
-            right slot carries a brand tagline instead. */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-6 text-center text-xs text-white/50 sm:flex-row sm:text-left">
-          <p>{t('footer.rights', { year: new Date().getFullYear(), brand: BRAND_NAME })}</p>
-          <p>{t('footer.tagline')}</p>
+        {/* Bottom bar, just the copyright. The legal agency identity (name +
+            licence number) is not repeated here; it lives solely in the Official
+            Agency card above. */}
+        <div className="mt-12 border-t border-white/10 pt-8 text-center">
+          <p className="text-xs text-white/45">
+            {t('footer.rights', { year: new Date().getFullYear(), brand: BRAND_NAME })}
+          </p>
         </div>
       </div>
     </footer>
